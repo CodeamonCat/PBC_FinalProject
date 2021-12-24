@@ -30,8 +30,6 @@ pygame.mixer.music.set_volume(0.1)  # 調整音量
 pygame.display.set_caption("112模擬器")
 pygame.display.set_icon(SMALLCMKuan)
 
-# 創建Sprite
-
 
 class Player(pygame.sprite.Sprite):
     def __init__(self):  # 定義各種屬性
@@ -94,9 +92,8 @@ class Player(pygame.sprite.Sprite):
 
 class Question1(tk.Frame):
     def __init__(self):
-        tk.Frame.__init__(self)
         self.root = tk.Tk()
-        self.grid()
+        self.root.title('Attempt 1')
         self.createwidget()
 
     def createwidget(self):
@@ -110,10 +107,11 @@ class Question1(tk.Frame):
             self.root, text="8/15", command=self.clickbutton2, height=1, width=6, font=f2)
         self.buttomNum3 = tk.Button(
             self.root, text="11/22", command=self.clickbutton3, height=1, width=6, font=f2)
-        self.heading.grid(row=0, column=0, sticky=tk.NW+tk.SE)
-        self.buttomNum1.grid(row=1, column=0, sticky=tk.NW+tk.SE)  # 擺哪裡
-        self.buttomNum2.grid(row=2, column=0, sticky=tk.NW+tk.SE)
-        self.buttomNum3.grid(row=3, column=0, sticky=tk.NW+tk.SE)
+        self.heading.pack()
+        self.buttomNum1.pack()
+        self.buttomNum2.pack()
+        self.buttomNum3.pack()
+        self.root.mainloop()
 
     def clickbutton1(self):
         self.root.destroy()
@@ -156,12 +154,6 @@ def draw_init():  # 設定初始化界面
                 return False
 
 
-def question_pause():
-    question1 = Question1()
-    question1.master.title("Question 1")
-    question1.mainloop()
-
-
 # 物件設定
 all_sprites = pygame.sprite.Group()
 player = Player()
@@ -190,10 +182,10 @@ while running:
             run_sound.play()
 
     if not Q1check:
-        if player.rect.x == 100:
+        if player.rect.x == WIDTH/2-20:
             run_sound.stop()
             Q1check = True
-            close2 = question_pause()
+            Question1()
 
     # 取得輸入
     for event in pygame.event.get():  # 取得輸入，把他得到的動作並成為一個list
