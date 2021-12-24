@@ -1,5 +1,7 @@
 import pygame
 import os
+import tkinter as tk
+import tkinter.font as tkFont
 WIDTH = 800
 HEIGHT = 534
 FPS = 10  # 偵數，一個指令0.1秒 ->時間每次加0.1
@@ -22,7 +24,7 @@ init_img = pygame.image.load(os.path.join("image", "start.jpg")).convert()
 
 BGM = pygame.mixer.music.load(os.path.join("music", "BGM.wav"))
 run_sound = pygame.mixer.Sound(os.path.join("music", "run.wav"))
-pygame.mixer.music.set_volume(0.4)  # 調整音量
+pygame.mixer.music.set_volume(0.1)  # 調整音量
 
 # 標題
 pygame.display.set_caption("112模擬器")
@@ -42,10 +44,11 @@ class Player(pygame.sprite.Sprite):
         self.speedx = 5  # 速度
         self.energy = 100  # 管爺能量
         self.tiring = False  # 管爺累不累
-        self.time = 0  # 總時間
+        self.time = 300  # 總時間
+        self.point = 0
 
     def update(self):  # 定義各種按鍵的功能
-        self.time += 0.1  # 計時
+        self.time -= 0.1  # 計時
         key_pressed = pygame.key.get_pressed()
         # 他有一大堆布林值，key_pressed偵測這個按鍵有沒有被按
 
@@ -89,6 +92,40 @@ class Player(pygame.sprite.Sprite):
             self.rect.bottom = HEIGHT
 
 
+class Question1(tk.Frame):
+    def __init__(self):
+        tk.Frame.__init__(self)
+        self.root = tk.Tk()
+        self.grid()
+        self.createwidget()
+
+    def createwidget(self):
+        f1 = tkFont.Font(size=28, family='Arial')
+        f2 = tkFont.Font(size=18, family='Arial')
+        self.heading = tk.Label(self.root, text='管爺幾月幾號生日？',
+                                height=1, width=15, font=f1)
+        self.buttomNum1 = tk.Button(
+            self.root, text="6/22", command=self.clickbutton1, height=1, width=6, font=f2)
+        self.buttomNum2 = tk.Button(
+            self.root, text="8/15", command=self.clickbutton2, height=1, width=6, font=f2)
+        self.buttomNum3 = tk.Button(
+            self.root, text="11/22", command=self.clickbutton3, height=1, width=6, font=f2)
+        self.heading.grid(row=0, column=0, sticky=tk.NW+tk.SE)
+        self.buttomNum1.grid(row=1, column=0, sticky=tk.NW+tk.SE)  # 擺哪裡
+        self.buttomNum2.grid(row=2, column=0, sticky=tk.NW+tk.SE)
+        self.buttomNum3.grid(row=3, column=0, sticky=tk.NW+tk.SE)
+
+    def clickbutton1(self):
+        self.root.destroy()
+
+    def clickbutton2(self):
+        player.point += 5
+        self.root.destroy()
+
+    def clickbutton3(self):
+        self.root.destroy()
+
+
 def draw_text(surf, text, size, x, y):  # 文字顯示
     font = pygame.font.Font(pygame.font.match_font("arial"), size)  # 名稱大小
     text_surface = font.render(text, True, (255, 255, 255))  # 渲染顏色
@@ -119,6 +156,12 @@ def draw_init():  # 設定初始化界面
                 return False
 
 
+def question_pause():
+    question1 = Question1()
+    question1.master.title("Question 1")
+    question1.mainloop()
+
+
 # 物件設定
 all_sprites = pygame.sprite.Group()
 player = Player()
@@ -126,7 +169,9 @@ all_sprites.add(player)
 pygame.mixer.music.play(-1)
 run_sound.play()
 
+Q1check = False
 while running:
+    clock.tick(FPS)  # 一秒鐘之內最多只能執行10次
     # 初始化界面
     if show_init:
         run_sound.stop()
@@ -143,7 +188,12 @@ while running:
         runsound_judge += 1
         if runsound_judge == 1:
             run_sound.play()
-    clock.tick(FPS)  # 一秒鐘之內最多只能執行10次
+
+    if not Q1check:
+        if player.rect.x == 100:
+            run_sound.stop()
+            Q1check = True
+            close2 = question_pause()
 
     # 取得輸入
     for event in pygame.event.get():  # 取得輸入，把他得到的動作並成為一個list
@@ -160,5 +210,7 @@ while running:
     draw_text(screen, str("ENERGY:"), 30, WIDTH/2-80, 12)
     draw_text(screen, str(int(player.time)), 30, WIDTH/2, 50)
     draw_text(screen, str("TIME:"), 30, WIDTH/2-80, 50)
+    draw_text(screen, str("POINT:"), 30, WIDTH/2-80, 100)
+    draw_text(screen, str(player.point), 30, WIDTH/2, 100)
     pygame.display.update()  # 更新
 pygame.quit()  # 離開
