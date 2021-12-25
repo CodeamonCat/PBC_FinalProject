@@ -96,7 +96,7 @@ class BuildWindow(tk.Tk):
 
     def __init__(self, number, Q1, A1, A2, A3,explain,  right_ans, point):
         self.root = tk.Tk()
-        self.root.title('Attempt 1')
+        self.root.title(number)
         self.Q1 = Q1
         self.A1 = A1
         self.A2 = A2
@@ -125,9 +125,9 @@ class BuildWindow(tk.Tk):
         self.root.mainloop()
 
     def clickbutton1(self):
-        msg.showinfo(self.number, self.explain)
         if self.right_ans == 1:
             player.point += self.point
+        msg.showinfo(self.number, self.explain)
         self.root.destroy()
 
     def clickbutton2(self):
@@ -208,6 +208,10 @@ while running:
         BuildWindow("Q1-1", "管爺幾月幾號生日？","6/5", "8/15", "12/25",'管爺的生日是8月15日，是個陽光開朗有威嚴的獅子座，了解管爺的生日有助於祝她萬福金安', 2, 5)
         BuildWindow("Q1-2", "台大創校幾周年？","66", "87", "93",'本校的前身為日治時期之「臺北帝國大學」，成立於1928年。光復後，改名為「國立臺灣大學」，由羅宗洛博士擔任首任校長。',3, 5)
         BuildWindow("Q1-3", "傅斯年校長每天要沉思幾小時？","3", "2", "1", '傅斯年校長說:「一天只有 21小時，剩下 3小時是用來沉思的」。他敢在蔣介石面前蹺腳直言，人稱「傅大炮」', 1, 10)
+        root = tk.Tk()
+        root.withdraw()
+        msg.showinfo('分數小結', '你總共獲得了%d分，繼續加油' % player.point)
+
 
     # 取得輸入
     for event in pygame.event.get():  # 取得輸入，把他得到的動作並成為一個list
