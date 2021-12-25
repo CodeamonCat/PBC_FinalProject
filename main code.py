@@ -2,6 +2,8 @@ import pygame
 import os
 import tkinter as tk
 import tkinter.font as tkFont
+import threading
+import time
 WIDTH = 800
 HEIGHT = 534
 FPS = 10  # 偵數，一個指令0.1秒 ->時間每次加0.1
@@ -89,29 +91,58 @@ class Player(pygame.sprite.Sprite):
         if self.rect.bottom > HEIGHT:
             self.rect.bottom = HEIGHT
 
+# class Stopwatch(tk.Tk):
+    # def __init__(self):
+    #     tk.Tk.__init__(self)
+    #     self.label = tk.Label(self, text="", width=15)
+    #     self.label.pack()
+    #     self.remaining = 0
+    #     self.countdown(5)
 
-class Question1(tk.Frame):
+    # def countdown(self, remaining = None):
+    #     if remaining is not None:
+    #         self.remaining = remaining
+
+    #     if self.remaining <= 0:
+    #         self.label.configure(text="time's up!")
+    #     else:
+    #         self.label.configure(text="%d" % self.remaining)
+    #         self.remaining = self.remaining - 1
+    #         self.after(1000, self.countdown)
+            
+
+class Question1(tk.Tk):
     def __init__(self):
         self.root = tk.Tk()
         self.root.title('Attempt 1')
+        self.remaining = 5
         self.createwidget()
-
+        # app = Stopwatch()
+        # app.mainloop()
+        
+    
     def createwidget(self):
-        f1 = tkFont.Font(size=28, family='Arial')
-        f2 = tkFont.Font(size=18, family='Arial')
-        self.heading = tk.Label(self.root, text='管爺幾月幾號生日？',
-                                height=1, width=15, font=f1)
-        self.buttomNum1 = tk.Button(
-            self.root, text="6/22", command=self.clickbutton1, height=1, width=6, font=f2)
-        self.buttomNum2 = tk.Button(
-            self.root, text="8/15", command=self.clickbutton2, height=1, width=6, font=f2)
-        self.buttomNum3 = tk.Button(
-            self.root, text="11/22", command=self.clickbutton3, height=1, width=6, font=f2)
-        self.heading.pack()
-        self.buttomNum1.pack()
-        self.buttomNum2.pack()
-        self.buttomNum3.pack()
-        self.root.mainloop()
+        while self.remaining >= 0:
+            f1 = tkFont.Font(size=28, family='Arial')
+            f2 = tkFont.Font(size=18, family='Arial')
+            self.heading = tk.Label(self.root, text='管爺幾月幾號生日？',
+                                    height=1, width=15, font=f1)
+            self.timer = tk.Label(self.root, text='剩餘秒數:%d' % self.remaining,
+                                    height=1, width=15, font=f1)
+            self.remaining -= 0.1
+            self.buttomNum1 = tk.Button(
+                self.root, text="6/22", command=self.clickbutton1, height=1, width=6, font=f2)
+            self.buttomNum2 = tk.Button(
+                self.root, text="8/15", command=self.clickbutton2, height=1, width=6, font=f2)
+            self.buttomNum3 = tk.Button(
+                self.root, text="11/22", command=self.clickbutton3, height=1, width=6, font=f2)
+            self.heading.pack()
+            self.timer.pack()
+            self.buttomNum1.pack()
+            self.buttomNum2.pack()
+            self.buttomNum3.pack()
+            self.root.mainloop()
+
 
     def clickbutton1(self):
         self.root.destroy()
@@ -160,8 +191,10 @@ player = Player()
 all_sprites.add(player)
 pygame.mixer.music.play(-1)
 run_sound.play()
+    
 
 Q1check = False
+
 while running:
     clock.tick(FPS)  # 一秒鐘之內最多只能執行10次
     # 初始化界面
@@ -180,12 +213,16 @@ while running:
         runsound_judge += 1
         if runsound_judge == 1:
             run_sound.play()
-
-    if not Q1check:
-        if player.rect.x == WIDTH/2-20:
-            run_sound.stop()
-            Q1check = True
-            Question1()
+    if __name__ == '__main__':
+        if not Q1check:
+            if player.rect.x == WIDTH/2-20:
+                run_sound.stop()
+                Q1check = True
+                Question1()
+            #     threads = [threading.Thread(target=Question1()),
+            #    threading.Thread(target=stopwatchstart())]
+            #     for t in threads:
+            #         t.start()
 
     # 取得輸入
     for event in pygame.event.get():  # 取得輸入，把他得到的動作並成為一個list
