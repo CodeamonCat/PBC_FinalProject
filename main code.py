@@ -112,36 +112,46 @@ class Player(pygame.sprite.Sprite):
             
 
 class Question1(tk.Tk):
+    def timer(self):
+        for x in range(5,0,-1):
+            print("HI")
+            self.remaining = x
+            time.sleep(1)
+
     def __init__(self):
         self.root = tk.Tk()
         self.root.title('Attempt 1')
         self.remaining = 5
         self.createwidget()
+
         # app = Stopwatch()
         # app.mainloop()
+
+
         
     
     def createwidget(self):
-        while self.remaining >= 0:
-            f1 = tkFont.Font(size=28, family='Arial')
-            f2 = tkFont.Font(size=18, family='Arial')
-            self.heading = tk.Label(self.root, text='管爺幾月幾號生日？',
-                                    height=1, width=15, font=f1)
-            self.timer = tk.Label(self.root, text='剩餘秒數:%d' % self.remaining,
-                                    height=1, width=15, font=f1)
-            self.remaining -= 0.1
-            self.buttomNum1 = tk.Button(
-                self.root, text="6/22", command=self.clickbutton1, height=1, width=6, font=f2)
-            self.buttomNum2 = tk.Button(
-                self.root, text="8/15", command=self.clickbutton2, height=1, width=6, font=f2)
-            self.buttomNum3 = tk.Button(
-                self.root, text="11/22", command=self.clickbutton3, height=1, width=6, font=f2)
-            self.heading.pack()
-            self.timer.pack()
-            self.buttomNum1.pack()
-            self.buttomNum2.pack()
-            self.buttomNum3.pack()
-            self.root.mainloop()
+        t = threading.Thread(target = self.timer)
+        t.start()
+        f1 = tkFont.Font(size=28, family='Arial')
+        f2 = tkFont.Font(size=18, family='Arial')
+        self.heading = tk.Label(self.root, text='管爺幾月幾號生日？',
+                                height=1, width=15, font=f1)
+        self.timecount = tk.Label(self.root, text='剩餘秒數:%d' % self.remaining,
+                                height=1, width=15, font=f1)
+        self.buttomNum1 = tk.Button(
+            self.root, text="6/22", command=self.clickbutton1, height=1, width=6, font=f2)
+        self.buttomNum2 = tk.Button(
+            self.root, text="8/15", command=self.clickbutton2, height=1, width=6, font=f2)
+        self.buttomNum3 = tk.Button(
+            self.root, text="11/22", command=self.clickbutton3, height=1, width=6, font=f2)
+        self.heading.pack()
+        self.timecount.pack()
+        self.buttomNum1.pack()
+        self.buttomNum2.pack()
+        self.buttomNum3.pack()
+        self.root.mainloop()
+        t.join()  # 目前有在背景跑這個城市
 
 
     def clickbutton1(self):
@@ -153,6 +163,7 @@ class Question1(tk.Tk):
 
     def clickbutton3(self):
         self.root.destroy()
+    
 
 
 def draw_text(surf, text, size, x, y):  # 文字顯示
