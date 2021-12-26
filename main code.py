@@ -39,8 +39,11 @@ img8 = pygame.image.load(
 img9 = pygame.image.load(
     os.path.join("image", "9.png")).convert()
 photolist = [img1, img2, img3, img4, img5, img6, img7, img8, img9]
-CMKuan = pygame.image.load(os.path.join("image", "管中閔.jpg")).convert()
-SMALLCMKuan = pygame.transform.scale(CMKuan, (20, 20))
+CMKuanL = pygame.image.load(os.path.join("image", "管中閔(左).jpg")).convert()
+CMKuanR = pygame.image.load(os.path.join("image", "管中閔(右).jpg")).convert()
+CMKuanLT = pygame.image.load(os.path.join("image", "管中閔(左累).jpg")).convert()
+CMKuanRT = pygame.image.load(os.path.join("image", "管中閔(右累).jpg")).convert()
+SMALLCMKuan = pygame.transform.scale(CMKuanL, (20, 20))
 init_img = pygame.image.load(os.path.join("image", "start.jpg")).convert()
 
 BGM = pygame.mixer.music.load(os.path.join("music", "BGM.wav"))
@@ -56,7 +59,7 @@ class Player(pygame.sprite.Sprite):
     def __init__(self):  # 定義各種屬性
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface((70, 70))
-        self.image = pygame.transform.scale(CMKuan, (70, 70))
+        self.image = pygame.transform.scale(CMKuanL, (70, 70))
         self.rect = self.image.get_rect()  # 把它給定位
         self.rect.x = WIDTH/2
         self.rect.y = HEIGHT/2  # 起始位置
@@ -74,7 +77,11 @@ class Player(pygame.sprite.Sprite):
         # 管爺走路
         if key_pressed[pygame.K_LEFT]:
             self.rect.x -= self.speedx
+            self.image = pygame.transform.scale(CMKuanL, (70, 70))
         if key_pressed[pygame.K_RIGHT]:
+            if key_pressed[pygame.K_LSHIFT]:
+                pass
+            self.image = pygame.transform.scale(CMKuanR, (70, 70))
             self.rect.x += self.speedx
         if key_pressed[pygame.K_UP]:
             self.rect.y -= self.speedx
@@ -83,6 +90,10 @@ class Player(pygame.sprite.Sprite):
 
         # 管爺加速
         if key_pressed[pygame.K_LSHIFT]:
+            if key_pressed[pygame.K_LEFT]:
+                self.image = pygame.transform.scale(CMKuanLT, (70, 70))
+            if key_pressed[pygame.K_RIGHT]:
+                self.image = pygame.transform.scale(CMKuanRT, (70, 70))
             self.tiring = True
             if self.energy-4 >= 0:
                 self.speedx = 10
@@ -90,15 +101,16 @@ class Player(pygame.sprite.Sprite):
             else:
                 self.speedx = 5
         if not key_pressed[pygame.K_LSHIFT]:
+            if self.image == CMKuanRT:
+                self.image = pygame.transform.scale(CMKuanR, (70, 70))
+            if self.image == CMKuanLT:
+                self.image = pygame.transform.scale(CMKuanL, (70, 70))
             self.tiring = False
             self.speedx = 5
             if self.energy < 100:
                 self.energy += 2
-
-        # 管爺跳跳
-        if key_pressed[pygame.K_SPACE]:
-            self.rect.y -= 20
-            self.energy -= 7
+            if self.energy > 100:
+                self.energy = 100
 
         # 管爺撞牆
         if self.rect.right > WIDTH:
@@ -115,6 +127,8 @@ class Player(pygame.sprite.Sprite):
             self.background = image
         else:
             self.background = self.background
+
+
 def rightexceed(photo):
     position = photolist.index(photo)
     if position in [0, 1, 3, 4, 6, 7]:
@@ -123,6 +137,8 @@ def rightexceed(photo):
     else:
         player.rect.right = WIDTH
         return photo
+
+
 def leftexceed(photo):
     position = photolist.index(photo)
     if position in [2, 1, 5, 4, 8, 7]:
@@ -131,6 +147,8 @@ def leftexceed(photo):
     else:
         player.rect.left = 0
         return photo
+
+
 def topexceed(photo):
     position = photolist.index(photo)
     if position in [3, 4, 5, 6, 7, 8]:
@@ -139,13 +157,15 @@ def topexceed(photo):
     else:
         player.rect.top = 0
         return photo
+
+
 def bottomexceed(photo):
     position = photolist.index(photo)
     if position in [0, 1, 2, 3, 4, 5]:
         player.rect.top = 0
         return photolist[position + 3]
     elif position == 6:
-        run_sound.stop()           
+        run_sound.stop()
         root = tk.Tk()
         root.withdraw()
         waterbox = msg.askquestion("前往水源", "Are you sure to go to 水源?")
@@ -158,15 +178,6 @@ def bottomexceed(photo):
     else:
         player.rect.bottom = HEIGHT
         return photo
-
-class Target(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((70, 70))
-        self.image = pygame.transform.scale(CMKuan, (70, 70))
-        self.rect = self.image.get_rect()
-        self.rect.x = WIDTH/2
-        self.rect.y = HEIGHT/2
 
 
 all_sprites = pygame.sprite.Group()
@@ -258,7 +269,9 @@ def draw_init():  # 設定初始化界面
                 waiting = False
                 return False
 
+
 player.background = img4
+player.CMKuan = CMKuanL
 pygame.mixer.music.play(-1)
 run_sound.play()
 while running:
@@ -280,15 +293,15 @@ while running:
         if runsound_judge == 1:
             run_sound.play()
 
-    if visited[0] == 0 and player.rect.x == WIDTH/2:
+    if visited[0] == 0 and player.background == img5:
         run_sound.stop()
         visited[0] = 1
         BuildWindow("Q1-1", "管爺幾月幾號生日？", "6/5", "8/15", "12/25",
-                    '管爺的生日是8月15日，是個陽光開朗有威嚴的獅子座，了解管爺的生日有助於祝她萬福金安', 2, 5)
+                    '管爺的生日是8月15日，是個陽光開朗有威嚴的獅子座，了解管爺的生日有助於祝她萬福金安。\n正確回答為:8/15', 2, 5)
         BuildWindow("Q1-2", "台大創校幾周年？", "66", "87", "93",
-                    '本校的前身為日治時期之「臺北帝國大學」，成立於1928年。光復後，改名為「國立臺灣大學」，由羅宗洛博士擔任首任校長。', 3, 5)
+                    '本校的前身為日治時期之「臺北帝國大學」，成立於1928年。光復後，改名為「國立臺灣大學」，由羅宗洛博士擔任首任校長。\n正確回答為:93', 3, 5)
         BuildWindow("Q1-3", "傅斯年校長每天要沉思幾小時？", "3", "2", "1",
-                    '傅斯年校長說:「一天只有 21小時，剩下 3小時是用來沉思的」。他敢在蔣介石面前蹺腳直言，人稱「傅大炮」', 1, 10)
+                    '傅斯年校長說:「一天只有 21小時，剩下 3小時是用來沉思的」。他敢在蔣介石面前蹺腳直言，人稱「傅大炮」\n\n正確回答為:3', 1, 10)
         root = tk.Tk()
         root.withdraw()
         msg.showinfo('分數小結', '你總共獲得了%d分，繼續加油' % player.point)
