@@ -3,8 +3,6 @@ import os
 import tkinter as tk
 import tkinter.font as tkFont
 from tkinter import messagebox as msg
-
-from pygame import image
 WIDTH = 401
 HEIGHT = 330
 FPS = 10  # 偵數，一個指令0.1秒 ->時間每次加0.1
@@ -187,34 +185,40 @@ all_sprites.add(player)
 
 class BuildWindow(tk.Tk):
 
-    def __init__(self, number, Q1, A1, A2, A3, explain,  right_ans, point):
+    def __init__(self, number, Q1, A1, A2, A3, explain,  right_ans, point, A4, HowmanyA):
         self.root = tk.Tk()
         self.root.title(number)
         self.Q1 = Q1
         self.A1 = A1
         self.A2 = A2
         self.A3 = A3
+        self.A4 = A4
         self.point = point
         self.right_ans = right_ans
         self.number = number
         self.explain = explain
+        self.HowmanyA = HowmanyA
+        print("HIHI")
         self.createwidget()
 
     def createwidget(self):
-        f1 = tkFont.Font(size=24, family='微軟正黑體')
-        f2 = tkFont.Font(size=16, family='微軟正黑體')
-        self.heading = tk.Label(self.root, text=self.Q1,
-                                height=1, width=24, font=f1)
+        self.heading = tk.Label(self.root, text=self.Q1)
         self.buttomNum1 = tk.Button(
-            self.root, text=self.A1, command=self.clickbutton1, height=1, width=6, font=f2)
+            self.root, text=self.A1, command=self.clickbutton1)
         self.buttomNum2 = tk.Button(
-            self.root, text=self.A2, command=self.clickbutton2, height=1, width=6, font=f2)
+            self.root, text=self.A2, command=self.clickbutton2)
         self.buttomNum3 = tk.Button(
-            self.root, text=self.A3, command=self.clickbutton3, height=1, width=6, font=f2)
+            self.root, text=self.A3, command=self.clickbutton3)
+        if self.HowmanyA > 3:
+            self.buttomNum4 = tk.Button(
+                self.root, text=self.A4, command=self.clickbutton4)
+
         self.heading.pack()
         self.buttomNum1.pack()
         self.buttomNum2.pack()
         self.buttomNum3.pack()
+        if self.HowmanyA > 3:
+            self.buttomNum3.pack()
         self.root.mainloop()
 
     def clickbutton1(self):
@@ -232,6 +236,12 @@ class BuildWindow(tk.Tk):
     def clickbutton3(self):
         msg.showinfo(self.number, self.explain)
         if self.right_ans == 3:
+            player.point += self.point
+        self.root.destroy()
+
+    def clickbutton4(self):
+        msg.showinfo(self.number, self.explain)
+        if self.right_ans == 4:
             player.point += self.point
         self.root.destroy()
 
@@ -271,7 +281,6 @@ def draw_init():  # 設定初始化界面
 
 
 player.background = img4
-player.CMKuan = CMKuanL
 pygame.mixer.music.play(-1)
 run_sound.play()
 while running:
@@ -293,15 +302,83 @@ while running:
         if runsound_judge == 1:
             run_sound.play()
 
-    if visited[0] == 0 and player.background == img5:
+ # 總圖問題(編號1)
+    if visited[0] == 0 and player.background == img1:
         run_sound.stop()
         visited[0] = 1
-        BuildWindow("Q1-1", "管爺幾月幾號生日？", "6/5", "8/15", "12/25",
-                    '管爺的生日是8月15日，是個陽光開朗有威嚴的獅子座，了解管爺的生日有助於祝她萬福金安。\n正確回答為:8/15', 2, 5)
-        BuildWindow("Q1-2", "台大創校幾周年？", "66", "87", "93",
-                    '本校的前身為日治時期之「臺北帝國大學」，成立於1928年。光復後，改名為「國立臺灣大學」，由羅宗洛博士擔任首任校長。\n正確回答為:93', 3, 5)
-        BuildWindow("Q1-3", "傅斯年校長每天要沉思幾小時？", "3", "2", "1",
-                    '傅斯年校長說:「一天只有 21小時，剩下 3小時是用來沉思的」。他敢在蔣介石面前蹺腳直言，人稱「傅大炮」\n\n正確回答為:3', 1, 10)
+        BuildWindow("Q1-1", "現今總圖為1998/11/14正式啟用之新總圖書館，請問舊總圖為現今的哪一棟建築？",
+                    "校史館", "文學院", "哈哈騙你的啦，總圖沒搬過家", '校史館', 1, 5, "舊總圖紀念館", 4)
+        BuildWindow("Q1-2", "下列各項優點當中，何者非總圖的優點？", "位置多，書架後面有許多位子，不想被打擾的同學有自己的空間",
+                    "位於辛亥路旁，很好找食物", "相比社科圖，就算不帶MAC進去也不會自卑", '位於辛亥路旁的圖書館為社科圖', 2, 5, "地下自習室給人完整的K書空間", 4)
+        BuildWindow("Q1-3", "同學間口耳相傳的「總打」是…？", "總圖打掃阿姨",
+                    "總圖打code打到起肖", "總圖\%\%\%", '呵呵不用多說了吧', 3, 10, "總圖打麻將", 4)
+        root = tk.Tk()
+        root.withdraw()
+        msg.showinfo('分數小結', '你總共獲得了%d分，繼續加油' % player.point)
+
+ # 傅鐘問題(編號2)
+    if visited[1] == 0 and player.background == img2:
+        run_sound.stop()
+        visited[1] = 1
+        BuildWindow("Q2-1", "目前位於椰林大道上的傅鐘其實非第一個傅鐘，第一代傅鐘因為禁不起長年的敲打而出現裂痕，所以後來才再重新造了一口鐘。請問，當初第一代傅鐘日響幾聲?",
+                    "根據當時時間決定敲打次數 ", "根據當年台大幾週年決定", "55聲", '為55聲，因為55是傅校長逝世的歲數。', 3, 5, "21聲", 4)
+        BuildWindow("Q2-2", "承上題，第一代傅鐘上面刻了什麼字？", "「敦品勵學，愛國愛人」", "「我愛令傑，令傑愛我」",
+                    "「葉台清交，謙虛內斂」", '「敦品勵學，愛國愛人」為台大校訓，「思想自由，兼容並包」為北京大學校訓', 1, 5, "「思想自由，兼容並包」", 4)
+        BuildWindow("Q2-3", "傳說，如果跟著傅鐘數完21聲，會發生什麼事情？", "能永遠停留在21歲", "會被21", "會交到21個男/女朋友",
+                    '原本會響21聲是因為傅校長曾經說過：「一天只有21個小時，因為3小時是用來沈思的」，後來被傳為要是跟著一起數會被21', 2, 10, "校長在21:21在臉書上親自發文致謝", 4)
+        root = tk.Tk()
+        root.withdraw()
+        msg.showinfo('分數小結', '你總共獲得了%d分，繼續加油' % player.point)
+
+ # 醉月湖問題(編號3)
+    if visited[2] == 0 and player.background == img3:
+        run_sound.stop()
+        visited[2] = 1
+        BuildWindow("Q3-1", "醉月湖的舊稱為何？", "亭心湖", "牛湳池", "文心堤",
+                    '醉月湖原本是農用池埤，為調節瑠公圳之用，舊稱為牛湳池', 2, 5, "瑠公圳第四蓄水池", 4)
+        BuildWindow("Q3-2", "醉月湖名稱由來為何？", "〈春夜宴從弟桃花源序〉：「開瓊筵以坐花，飛羽觴而醉月」", "為了吸引畢業生以及其他外校學生而取的炫砲名字", "校長經過時因陶醉於此月色，而因此取「醉月」為其名",
+                    '1973年，鄭梓和蘇元良兩位同學為舉辦畢業聯誼會，因此策劃了划船比賽，為了能使畢業生踴躍參與及吸引校內其它同學的目光，這兩位同學將比賽地點命名「醉月湖」，並於海報上刊登活動日期3月19日～20日，直到划船比賽的當日，「醉月湖」之名才出現於《畢聯會訊》，而後媒體及校內人士廣為稱之', 2, 5, "景色之美足以閉月，引此取名為「醉月」", 4)
+        BuildWindow("Q3-3", "3.  傳說，半夜經過醉月湖，會聽到一位女生悄悄地問：「」，但怎麼樣都找不到問話的人。", "「半夜還敢走這裡，這麼說，你很勇ㄛ」", "「歐尼醬！要不要陪我去散步啊」", "「晚上好冷，可以借我一件外套嗎」",
+                    '傳說，曾經有位女學生為了挽回感情，與男友相約晚上11點在醉月湖的湖心亭相見，但因為遲遲等不到對方的到來，於是想不開輕生。此後，有人曾在11點左右時路過湖畔，聽到有女生悄悄地問：「請問，現在幾點了？」但怎麼找都找不到問話的人', 4, 10, "「請問，現在幾點了」", 4)
+        root = tk.Tk()
+        root.withdraw()
+        msg.showinfo('分數小結', '你總共獲得了%d分，繼續加油' % player.point)
+# 新體問題(編號5)
+    if visited[4] == 0 and player.background == img5:
+        run_sound.stop()
+        visited[4] = 1
+        BuildWindow("Q5-1", "下列何者為新體沒有的設施?", "壁球場 ", "技擊室 ",
+                    "手球場(館) ", '新體沒有滑板場', 4, 5, "滑板場", 4)
+        BuildWindow("Q5-2", "請問新體從民國幾年起啟用?", "民國85年", "民國90年",
+                    "民國93年", '新體民國90年啟用', 2, 5, "民國102年", 4)
+        BuildWindow("Q5-3", "請問新體3-5樓的主球場共有多少固定座位?", "3321",
+                    "3221", "2113", '共有3221個', 2, 10, "1322", 4)
+        root = tk.Tk()
+        root.withdraw()
+        msg.showinfo('分數小結', '你總共獲得了%d分，繼續加油' % player.point)
+# 社科問題(編號6)
+    if visited[5] == 0 and player.background == img6:
+        run_sound.stop()
+        visited[5] = 1
+        BuildWindow("Q5-1", "請問社科院由哪位知名建築師設計?", "安藤忠雄", "貝聿銘 ",
+                    "札哈·哈蒂", '台大社科院新館由伊東豊雄(Toyo Ito)所精心設計', 4, 5, "伊東豊雄", 4)
+        BuildWindow("Q5-2", "社科院整棟造價約新台幣多少元?", "16億", "5億",
+                    "35億", '造價：新台幣16億元', 1, 5, "5500萬", 4)
+        BuildWindow("Q5-3", "請問社科院共有幾層樓?", "地上7層、地下2層", "地上8層、地下2層",
+                    "地上7層、地下4層", '地上8層、地下2層', 2, 10, "地上5層、地下2層", 4)
+        root = tk.Tk()
+        root.withdraw()
+        msg.showinfo('分數小結', '你總共獲得了%d分，繼續加油' % player.point)
+# 水源問題(編號7)
+    if visited[6] == 0 and player.background == img7:
+        run_sound.stop()
+        visited[6] = 1
+        BuildWindow("Q7-1", ".請問若貼有台大自行車車證的自行車被拖吊，第幾次之後開始須繳罰金?", "第一次 ",
+                    "第二次", "第三次", '被拖吊第三次開始須繳納50元', 3, 5, "只要有貼車證就不需繳罰金", 4)
+        BuildWindow("Q7-2", "水源拖吊場會有二手自行車的拍賣，提供給學校師生以便宜的價格購買腳踏車的機會，請問每人每學年有幾次的購買機會?",
+                    "一次", "兩次", "三次", '每學年每人可購買二手自行車次數 以 1 次為限', 1, 5, "想買多少就買多少", 4)
+        BuildWindow("Q7-3", "若未申請車證且腳踏車被拖吊，一次須繳納多少金額?", "50",
+                    "100", "300", '須繳納100元/次', 2, 10, "1000", 4)
         root = tk.Tk()
         root.withdraw()
         msg.showinfo('分數小結', '你總共獲得了%d分，繼續加油' % player.point)
