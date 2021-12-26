@@ -2,14 +2,16 @@ import pygame
 import os
 import tkinter as tk
 import tkinter.font as tkFont
-import threading
-import time
-WIDTH = 800
-HEIGHT = 534
+from tkinter import messagebox as msg
+
+from pygame import image
+WIDTH = 401
+HEIGHT = 330
 FPS = 10  # 偵數，一個指令0.1秒 ->時間每次加0.1
 show_init = True
 running = True
 runsound_judge = 1
+visited = [0]*12
 
 # 遊戲初始化 and 版面設置
 pygame.init()
@@ -18,8 +20,25 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))  # 創建一個幾乘幾的視
 clock = pygame.time.Clock()  # 因為每個電腦的效能不同造成體驗不同，所以進行降維打擊
 
 # 匯入圖片、音效
-background_img = pygame.image.load(
-    os.path.join("image", "background.jpg")).convert()
+img1 = pygame.image.load(
+    os.path.join("image", "1.png")).convert()
+img2 = pygame.image.load(
+    os.path.join("image", "2.png")).convert()
+img3 = pygame.image.load(
+    os.path.join("image", "3.png")).convert()
+img4 = pygame.image.load(
+    os.path.join("image", "4.png")).convert()
+img5 = pygame.image.load(
+    os.path.join("image", "5.png")).convert()
+img6 = pygame.image.load(
+    os.path.join("image", "6.png")).convert()
+img7 = pygame.image.load(
+    os.path.join("image", "7.png")).convert()
+img8 = pygame.image.load(
+    os.path.join("image", "8.png")).convert()
+img9 = pygame.image.load(
+    os.path.join("image", "9.png")).convert()
+photolist = [img1, img2, img3, img4, img5, img6, img7, img8, img9]
 CMKuan = pygame.image.load(os.path.join("image", "管中閔.jpg")).convert()
 SMALLCMKuan = pygame.transform.scale(CMKuan, (20, 20))
 init_img = pygame.image.load(os.path.join("image", "start.jpg")).convert()
@@ -83,92 +102,132 @@ class Player(pygame.sprite.Sprite):
 
         # 管爺撞牆
         if self.rect.right > WIDTH:
-            self.rect.right = WIDTH
-        if self.rect.left < 0:
-            self.rect.left = 0
-        if self.rect.top < 0:
-            self.rect.top = 0
-        if self.rect.bottom > HEIGHT:
-            self.rect.bottom = HEIGHT
+            image = rightexceed(self.background)
+            self.background = image
+        elif self.rect.left < 0:
+            image = leftexceed(self.background)
+            self.background = image
+        elif self.rect.top < 0:
+            image = topexceed(self.background)
+            self.background = image
+        elif self.rect.bottom > HEIGHT:
+            image = bottomexceed(self.background)
+            self.background = image
+        else:
+            self.background = self.background
+def rightexceed(photo):
+    position = photolist.index(photo)
+    if position in [0, 1, 3, 4, 6, 7]:
+        player.rect.left = 0
+        return photolist[position + 1]
+    else:
+        player.rect.right = WIDTH
+        return photo
+def leftexceed(photo):
+    position = photolist.index(photo)
+    if position in [2, 1, 5, 4, 8, 7]:
+        player.rect.right = WIDTH
+        return photolist[position - 1]
+    else:
+        player.rect.left = 0
+        return photo
+def topexceed(photo):
+    position = photolist.index(photo)
+    if position in [3, 4, 5, 6, 7, 8]:
+        player.rect.bottom = HEIGHT
+        return photolist[position - 3]
+    else:
+        player.rect.top = 0
+        return photo
+def bottomexceed(photo):
+    position = photolist.index(photo)
+    if position in [0, 1, 2, 3, 4, 5]:
+        player.rect.top = 0
+        return photolist[position + 3]
+    elif position == 6:
+        run_sound.stop()           
+        root = tk.Tk()
+        root.withdraw()
+        waterbox = msg.askquestion("前往水源", "Are you sure to go to 水源?")
+        if waterbox == 'yes':
+            player.rect.top = 0
+            return img1
+        else:
+            player.rect.bottom = HEIGHT-10
+            return photo
+    else:
+        player.rect.bottom = HEIGHT
+        return photo
 
-# class Stopwatch(tk.Tk):
-    # def __init__(self):
-    #     tk.Tk.__init__(self)
-    #     self.label = tk.Label(self, text="", width=15)
-    #     self.label.pack()
-    #     self.remaining = 0
-    #     self.countdown(5)
-
-    # def countdown(self, remaining = None):
-    #     if remaining is not None:
-    #         self.remaining = remaining
-
-    #     if self.remaining <= 0:
-    #         self.label.configure(text="time's up!")
-    #     else:
-    #         self.label.configure(text="%d" % self.remaining)
-    #         self.remaining = self.remaining - 1
-    #         self.after(1000, self.countdown)
-            
-
-class Question1(tk.Tk):
-    def timer(self):
-        for x in range(5,0,-1):
-            print("HI")
-            self.remaining = x
-            time.sleep(1)
-
+class Target(pygame.sprite.Sprite):
     def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.Surface((70, 70))
+        self.image = pygame.transform.scale(CMKuan, (70, 70))
+        self.rect = self.image.get_rect()
+        self.rect.x = WIDTH/2
+        self.rect.y = HEIGHT/2
+
+
+all_sprites = pygame.sprite.Group()
+player = Player()
+all_sprites.add(player)
+
+
+class BuildWindow(tk.Tk):
+
+    def __init__(self, number, Q1, A1, A2, A3, explain,  right_ans, point):
         self.root = tk.Tk()
-        self.root.title('Attempt 1')
-        self.remaining = 5
+        self.root.title(number)
+        self.Q1 = Q1
+        self.A1 = A1
+        self.A2 = A2
+        self.A3 = A3
+        self.point = point
+        self.right_ans = right_ans
+        self.number = number
+        self.explain = explain
         self.createwidget()
 
-        # app = Stopwatch()
-        # app.mainloop()
-
-
-        
-    
     def createwidget(self):
-        t = threading.Thread(target = self.timer)
-        t.start()
-        f1 = tkFont.Font(size=28, family='Arial')
-        f2 = tkFont.Font(size=18, family='Arial')
-        self.heading = tk.Label(self.root, text='管爺幾月幾號生日？',
-                                height=1, width=15, font=f1)
-        self.timecount = tk.Label(self.root, text='剩餘秒數:%d' % self.remaining,
-                                height=1, width=15, font=f1)
+        f1 = tkFont.Font(size=24, family='微軟正黑體')
+        f2 = tkFont.Font(size=16, family='微軟正黑體')
+        self.heading = tk.Label(self.root, text=self.Q1,
+                                height=1, width=24, font=f1)
         self.buttomNum1 = tk.Button(
-            self.root, text="6/22", command=self.clickbutton1, height=1, width=6, font=f2)
+            self.root, text=self.A1, command=self.clickbutton1, height=1, width=6, font=f2)
         self.buttomNum2 = tk.Button(
-            self.root, text="8/15", command=self.clickbutton2, height=1, width=6, font=f2)
+            self.root, text=self.A2, command=self.clickbutton2, height=1, width=6, font=f2)
         self.buttomNum3 = tk.Button(
-            self.root, text="11/22", command=self.clickbutton3, height=1, width=6, font=f2)
+            self.root, text=self.A3, command=self.clickbutton3, height=1, width=6, font=f2)
         self.heading.pack()
-        self.timecount.pack()
         self.buttomNum1.pack()
         self.buttomNum2.pack()
         self.buttomNum3.pack()
         self.root.mainloop()
-        t.join()  # 目前有在背景跑這個城市
-
 
     def clickbutton1(self):
+        if self.right_ans == 1:
+            player.point += self.point
+        msg.showinfo(self.number, self.explain)
         self.root.destroy()
 
     def clickbutton2(self):
-        player.point += 5
+        msg.showinfo(self.number, self.explain)
+        if self.right_ans == 2:
+            player.point += self.point
         self.root.destroy()
 
     def clickbutton3(self):
+        msg.showinfo(self.number, self.explain)
+        if self.right_ans == 3:
+            player.point += self.point
         self.root.destroy()
-    
 
 
 def draw_text(surf, text, size, x, y):  # 文字顯示
-    font = pygame.font.Font(pygame.font.match_font("arial"), size)  # 名稱大小
-    text_surface = font.render(text, True, (255, 255, 255))  # 渲染顏色
+    font = pygame.font.Font(pygame.font.match_font("微軟正黑體"), size)  # 名稱大小
+    text_surface = font.render(text, True, (0, 0, 0))  # 渲染顏色
     text_rect = text_surface.get_rect()  # 定位
     text_rect.centerx, text_rect.top = x, y
     surf.blit(text_surface, text_rect)
@@ -188,24 +247,20 @@ def draw_init():  # 設定初始化界面
     while waiting:
         for event in pygame.event.get():  # 取得鍵盤的所有輸入
             if event.type == pygame.QUIT:  # 離開
-                pygame.quit()
-                return True
+                root = tk.Tk()
+                root.withdraw()
+                exitbox = msg.askquestion("Exit", "Are you sure to exit?")
+                if exitbox == "yes":
+                    pygame.quit()
+                    return True
             elif event.type == pygame.KEYUP:
                 # 按下任何按鍵(KEYDOWN:按下去直接開始，KEYUP:鬆開才開始)
                 waiting = False
                 return False
 
-
-# 物件設定
-all_sprites = pygame.sprite.Group()
-player = Player()
-all_sprites.add(player)
+player.background = img4
 pygame.mixer.music.play(-1)
 run_sound.play()
-    
-
-Q1check = False
-
 while running:
     clock.tick(FPS)  # 一秒鐘之內最多只能執行10次
     # 初始化界面
@@ -224,28 +279,35 @@ while running:
         runsound_judge += 1
         if runsound_judge == 1:
             run_sound.play()
-    if __name__ == '__main__':
-        if not Q1check:
-            if player.rect.x == WIDTH/2-20:
-                run_sound.stop()
-                Q1check = True
-                Question1()
-            #     threads = [threading.Thread(target=Question1()),
-            #    threading.Thread(target=stopwatchstart())]
-            #     for t in threads:
-            #         t.start()
+
+    if visited[0] == 0 and player.rect.x == WIDTH/2:
+        run_sound.stop()
+        visited[0] = 1
+        BuildWindow("Q1-1", "管爺幾月幾號生日？", "6/5", "8/15", "12/25",
+                    '管爺的生日是8月15日，是個陽光開朗有威嚴的獅子座，了解管爺的生日有助於祝她萬福金安', 2, 5)
+        BuildWindow("Q1-2", "台大創校幾周年？", "66", "87", "93",
+                    '本校的前身為日治時期之「臺北帝國大學」，成立於1928年。光復後，改名為「國立臺灣大學」，由羅宗洛博士擔任首任校長。', 3, 5)
+        BuildWindow("Q1-3", "傅斯年校長每天要沉思幾小時？", "3", "2", "1",
+                    '傅斯年校長說:「一天只有 21小時，剩下 3小時是用來沉思的」。他敢在蔣介石面前蹺腳直言，人稱「傅大炮」', 1, 10)
+        root = tk.Tk()
+        root.withdraw()
+        msg.showinfo('分數小結', '你總共獲得了%d分，繼續加油' % player.point)
 
     # 取得輸入
     for event in pygame.event.get():  # 取得輸入，把他得到的動作並成為一個list
         if event.type == pygame.QUIT:  # 沒有函數的離開(?)
-            running = False
+            root = tk.Tk()
+            root.withdraw()
+            exitbox = msg.askquestion("Exit", "Are you sure to exit?")
+            if exitbox == 'yes':
+                running = False
 
     # 更新遊戲
     all_sprites.update()
 
     # 畫面顯示
-    screen.blit(background_img, (0, 0))  # 改成了圖片
-    all_sprites.draw(screen)
+    screen.blit(player.background, (0, 0))  # 改成了圖片
+    all_sprites.draw(screen)  # 把all_sprite裡面的東西都畫出來
     draw_text(screen, str(player.energy), 30, WIDTH/2, 12)
     draw_text(screen, str("ENERGY:"), 30, WIDTH/2-80, 12)
     draw_text(screen, str(int(player.time)), 30, WIDTH/2, 50)
