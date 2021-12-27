@@ -1,7 +1,6 @@
 import pygame
 import os
 import tkinter as tk
-import tkinter.font as tkFont
 from tkinter import messagebox as msg
 WIDTH = 401
 HEIGHT = 330
@@ -9,7 +8,6 @@ FPS = 10  # 偵數，一個指令0.1秒 ->時間每次加0.1
 show_init = True
 running = True
 runsound_judge = 1
-visited = [0]*12
 
 # 遊戲初始化 and 版面設置
 pygame.init()
@@ -44,6 +42,7 @@ img12 = pygame.image.load(
     os.path.join("image", "12.png")).convert()
 photolist = [img1, img2, img3, img4, img5,
              img6, img7, img8, img9, img10, img11, img12]
+visited = [0]*12
 CMKuanL = pygame.image.load(os.path.join("image", "管中閔(左).jpg")).convert()
 CMKuanR = pygame.image.load(os.path.join("image", "管中閔(右).jpg")).convert()
 CMKuanLT = pygame.image.load(os.path.join("image", "管中閔(左累).jpg")).convert()
@@ -230,10 +229,9 @@ class BuildWindow(tk.Tk):
 
     def clickbutton1(self):
         if self.A1 == '進去拉哪次不進去的':
-            print("YES")
             self.join = True
             self.root.destroy()
-            
+
         else:
             if self.right_ans == 1:
                 player.point += self.point
@@ -242,10 +240,9 @@ class BuildWindow(tk.Tk):
 
     def clickbutton2(self):
         if self.A2 == '先不要啦QQ':
-            print("NO!")
             self.join = False
             self.root.destroy()
-            
+
         else:
             msg.showinfo(self.number, self.explain)
             if self.right_ans == 2:
@@ -254,7 +251,6 @@ class BuildWindow(tk.Tk):
 
     def clickbutton3(self):
         if self.A3 == '讓我再考慮一下><':
-            print("MAYBE")
             self.join = False
             self.root.destroy()
         else:
@@ -309,8 +305,8 @@ pygame.mixer.music.play(-1)
 run_sound.play()
 while running:
     clock.tick(FPS)  # 一秒鐘之內最多只能執行10次
-    # 初始化界面
-    if show_init:
+
+    if show_init:  # 初始化界面
         run_sound.stop()
         close = draw_init()
         if close:
@@ -318,8 +314,7 @@ while running:
         show_init = False
         continue
 
-    # 播放喘氣聲
-    if not player.tiring:
+    if not player.tiring:  # 播放喘氣聲
         runsound_judge = 0
         run_sound.stop()
     else:
@@ -327,11 +322,11 @@ while running:
         if runsound_judge == 1:
             run_sound.play()
 
- # 總圖問題(編號1)
-    if visited[0] == 0 and player.background == img1:
+    if visited[0] == 0 and player.background == img1:   # 總圖問題(編號1)
         run_sound.stop()
         visited[0] = 1
-        result = BuildWindow("是否進入？", "請問是否要進入宿舍？","進去拉哪次不進去的", "先不要啦QQ", '讓我再考慮一下><', None,None, None, None, 1)
+        result = BuildWindow("是否進入？", "請問是否要進入宿舍？", "進去拉哪次不進去的",
+                             "先不要啦QQ", '讓我再考慮一下><', None, None, None, None, 1)
         if result.join:
             BuildWindow("Q1-1", "現今總圖為1998/11/14正式啟用之新總圖書館，請問舊總圖為現今的哪一棟建築？",
                         "校史館", "文學院", "哈哈騙你的啦，總圖沒搬過家", '校史館', 1, 5, "舊總圖紀念館", 4)
@@ -345,12 +340,12 @@ while running:
         else:
             root = tk.Tk()
             root.withdraw()
-            msg.showinfo('BYEBYE!','BYEBYE!!!')
- # 傅鐘問題(編號2)
-    if visited[1] == 0 and player.background == img2:
+            msg.showinfo('BYEBYE!', 'BYEBYE!!!')
+    if visited[1] == 0 and player.background == img2:   # 傅鐘問題(編號2)
         run_sound.stop()
         visited[1] = 1
-        result = BuildWindow("是否進入？", "請問是否要進入宿舍？","進去拉哪次不進去的", "先不要啦QQ", '讓我再考慮一下><', None,None, None, None, 1)
+        result = BuildWindow("是否進入？", "請問是否要進入宿舍？", "進去拉哪次不進去的",
+                             "先不要啦QQ", '讓我再考慮一下><', None, None, None, None, 1)
         if result.join:
             BuildWindow("Q2-1", "目前位於椰林大道上的傅鐘其實非第一個傅鐘，第一代傅鐘因為禁不起長年的敲打而出現裂痕，所以後來才再重新造了一口鐘。請問，當初第一代傅鐘日響幾聲?",
                         "根據當時時間決定敲打次數 ", "根據當年台大幾週年決定", "55聲", '為55聲，因為55是傅校長逝世的歲數。', 3, 5, "21聲", 4)
@@ -364,12 +359,12 @@ while running:
         else:
             root = tk.Tk()
             root.withdraw()
-            msg.showinfo('BYEBYE!','BYEBYE!!!')
- # 醉月湖問題(編號3)
-    if visited[2] == 0 and player.background == img3:
+            msg.showinfo('BYEBYE!', 'BYEBYE!!!')
+    if visited[2] == 0 and player.background == img3:   # 醉月湖問題(編號3)
         run_sound.stop()
         visited[2] = 1
-        result = BuildWindow("是否進入？", "請問是否要進入宿舍？","進去拉哪次不進去的", "先不要啦QQ", '讓我再考慮一下><', None,None, None, None, 1)
+        result = BuildWindow("是否進入？", "請問是否要進入宿舍？", "進去拉哪次不進去的",
+                             "先不要啦QQ", '讓我再考慮一下><', None, None, None, None, 1)
         if result.join:
             BuildWindow("Q3-1", "醉月湖的舊稱為何？", "亭心湖", "牛湳池", "文心堤",
                         '醉月湖原本是農用池埤，為調節瑠公圳之用，舊稱為牛湳池', 2, 5, "瑠公圳第四蓄水池", 4)
@@ -383,12 +378,12 @@ while running:
         else:
             root = tk.Tk()
             root.withdraw()
-            msg.showinfo('BYEBYE!','BYEBYE!!!')
-# 水源問題(編號12)
-    if visited[11] == 0 and player.background == img12:
+            msg.showinfo('BYEBYE!', 'BYEBYE!!!')
+    if visited[11] == 0 and player.background == img12:  # 水源問題(編號12)
         run_sound.stop()
         visited[11] = 1
-        result = BuildWindow("是否進入？", "請問是否要進入宿舍？","進去拉哪次不進去的", "先不要啦QQ", '讓我再考慮一下><', None,None, None, None, 1)
+        result = BuildWindow("是否進入？", "請問是否要進入宿舍？", "進去拉哪次不進去的",
+                             "先不要啦QQ", '讓我再考慮一下><', None, None, None, None, 1)
         if result.join:
             BuildWindow("Q12-1", ".請問若貼有台大自行車車證的自行車被拖吊，第幾次之後開始須繳罰金?", "第一次 ",
                         "第二次", "第三次", '被拖吊第三次開始須繳納50元', 3, 5, "只要有貼車證就不需繳罰金", 4)
@@ -402,12 +397,12 @@ while running:
         else:
             root = tk.Tk()
             root.withdraw()
-            msg.showinfo('BYEBYE!','BYEBYE!!!')
-# 新體問題(編號5)
-    if visited[4] == 0 and player.background == img5:
+            msg.showinfo('BYEBYE!', 'BYEBYE!!!')
+    if visited[4] == 0 and player.background == img5:  # 新體問題(編號5)
         run_sound.stop()
         visited[4] = 1
-        result = BuildWindow("是否進入？", "請問是否要進入宿舍？","進去拉哪次不進去的", "先不要啦QQ", '讓我再考慮一下><', None,None, None, None, 1)
+        result = BuildWindow("是否進入？", "請問是否要進入宿舍？", "進去拉哪次不進去的",
+                             "先不要啦QQ", '讓我再考慮一下><', None, None, None, None, 1)
         if result.join:
             BuildWindow("Q5-1", "下列何者為新體沒有的設施?", "壁球場 ", "技擊室 ",
                         "手球場(館) ", '新體沒有滑板場', 4, 5, "滑板場", 4)
@@ -421,12 +416,12 @@ while running:
         else:
             root = tk.Tk()
             root.withdraw()
-            msg.showinfo('BYEBYE!','BYEBYE!!!')
-# 社科問題(編號6)
-    if visited[5] == 0 and player.background == img6:
+            msg.showinfo('BYEBYE!', 'BYEBYE!!!')
+    if visited[5] == 0 and player.background == img6:  # 社科問題(編號6)
         run_sound.stop()
         visited[5] = 1
-        result = BuildWindow("是否進入？", "請問是否要進入宿舍？","進去拉哪次不進去的", "先不要啦QQ", '讓我再考慮一下><', None,None, None, None, 1)
+        result = BuildWindow("是否進入？", "請問是否要進入宿舍？", "進去拉哪次不進去的",
+                             "先不要啦QQ", '讓我再考慮一下><', None, None, None, None, 1)
         if result.join:
             BuildWindow("Q5-1", "請問社科院由哪位知名建築師設計?", "安藤忠雄", "貝聿銘 ",
                         "札哈·哈蒂", '台大社科院新館由伊東豊雄(Toyo Ito)所精心設計', 4, 5, "伊東豊雄", 4)
@@ -440,12 +435,12 @@ while running:
         else:
             root = tk.Tk()
             root.withdraw()
-            msg.showinfo('BYEBYE!','BYEBYE!!!')
-# 男一舍問題(編號7)
-    if visited[6] == 0 and player.background == img7:
+            msg.showinfo('BYEBYE!', 'BYEBYE!!!')
+    if visited[6] == 0 and player.background == img7:  # 男一舍問題(編號7)
         run_sound.stop()
         visited[6] = 1
-        result = BuildWindow("是否進入？", "請問是否要進入宿舍？","進去拉哪次不進去的", "先不要啦QQ", '讓我再考慮一下><', None,None, None, None, 1)
+        result = BuildWindow("是否進入？", "請問是否要進入宿舍？", "進去拉哪次不進去的",
+                             "先不要啦QQ", '讓我再考慮一下><', None, None, None, None, 1)
         if result.join:
             BuildWindow("Q7-1", "台大男一舍是什麼類型的宿舍？", "男學生宿舍", "男女學生混合宿舍", "男教職員宿舍",
                         '台大男一舍主要提供一年級的男學生住宿，雖然裡面可能蠻常會遇到女性，不過男一舍確實是男性宿舍喔！', 1, 5, "狗狗宿舍", 4)
@@ -459,13 +454,12 @@ while running:
         else:
             root = tk.Tk()
             root.withdraw()
-            msg.showinfo('BYEBYE!','BYEBYE!!!')
-
- # 校門問題
-    if visited[0] == 0 and player.background == img8:
+            msg.showinfo('BYEBYE!', 'BYEBYE!!!')
+    if visited[7] == 0 and player.background == img8:  # 校門問題(編號8)
         run_sound.stop()
         visited[0] = 1
-        result = BuildWindow("是否進入？", "請問是否要進入宿舍？","進去拉哪次不進去的", "先不要啦QQ", '讓我再考慮一下><', None,None, None, None, 1)
+        result = BuildWindow("是否進入？", "請問是否要進入宿舍？", "進去拉哪次不進去的",
+                             "先不要啦QQ", '讓我再考慮一下><', None, None, None, None, 1)
         if result.join:
             BuildWindow("Q8-1", "台大校門是什麼顏色的呢？", "銀白色", "紅褐色", "七彩霓虹色",
                         '台大校門使用褐色面磚與唭哩岸石建造，色彩與校園校舍同為咖啡色系。', 2, 5, "暗紫色", 4)
@@ -479,12 +473,12 @@ while running:
         else:
             root = tk.Tk()
             root.withdraw()
-            msg.showinfo('BYEBYE!','BYEBYE!!!')
- # 管理學院問題
-    if visited[0] == 0 and player.background == img9:
+            msg.showinfo('BYEBYE!', 'BYEBYE!!!')
+    if visited[8] == 0 and player.background == img9:  # 管理學院問題(編號9)
         run_sound.stop()
         visited[0] = 1
-        result = BuildWindow("是否進入？", "請問是否要進入宿舍？","進去拉哪次不進去的", "先不要啦QQ", '讓我再考慮一下><', None,None, None, None, 1)
+        result = BuildWindow("是否進入？", "請問是否要進入宿舍？", "進去拉哪次不進去的",
+                             "先不要啦QQ", '讓我再考慮一下><', None, None, None, None, 1)
         if result.join:
             BuildWindow("Q9-1", "台大管院希望培養學生什麼樣的能力？", "獨立思考與解決問題的能力", "如猴猴一般快樂玩耍的能力", "優秀的跑跳能力",
                         '教學方面，管理學院期望招收及培育具有領導管理潛能的一流學生，培養學生獨立思考與解決問題能力。', 1, 5, "我也不知道要培養什麼樣的能力", 4)
@@ -498,9 +492,8 @@ while running:
         else:
             root = tk.Tk()
             root.withdraw()
-            msg.showinfo('BYEBYE!','BYEBYE!!!')
+            msg.showinfo('BYEBYE!', 'BYEBYE!!!')
 
-    # 取得輸入
     for event in pygame.event.get():  # 取得輸入，把他得到的動作並成為一個list
         if event.type == pygame.QUIT:  # 沒有函數的離開(?)
             root = tk.Tk()
@@ -509,11 +502,8 @@ while running:
             if exitbox == 'yes':
                 running = False
 
-    # 更新遊戲
-    all_sprites.update()
-
-    # 畫面顯示
-    screen.blit(player.background, (0, 0))  # 改成了圖片
+    all_sprites.update()  # 更新遊戲
+    screen.blit(player.background, (0, 0))  # 畫面顯示改成了圖片
     all_sprites.draw(screen)  # 把all_sprite裡面的東西都畫出來
     draw_text(screen, str(player.energy), 30, WIDTH/2, 12)
     draw_text(screen, str("ENERGY:"), 30, WIDTH/2-80, 12)
