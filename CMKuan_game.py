@@ -5,10 +5,9 @@ class Game:
     def __init__(self):
         self.__clock = None
         self.__FPS = 40
-        self.__player = None
         self.__screen = None
-        self.__screen_width = 800
         self.__screen_height = 600
+        self.__screen_width = 800
 
     def display_background(self):
         self.__screen.blit(Game.get_image('image\\4.png', self.__screen_width, self.__screen_height), (0, 0))
