@@ -192,10 +192,34 @@ all_sprites = pygame.sprite.Group()
 player = Player()
 all_sprites.add(player)
 
+class WhetherEnter(tk.Tk):
+    def __init__(self, title, Q1, A1, A2, A3):
+        print(str(threading.enumerate())+"AAAAAAAAAAAAAA")
+        self.Q1 = Q1
+        self.A1 = A1
+        self.A2 = A2
+        self.A3 = A3
+        self.title = title
+        self.join = True
+        self.createwindow()
+    def createwindow(self):
+        self.root = tk.Tk()
+        self.root.title(self.title)
+        self.heading = tk.Label(self.root, text=self.Q1)
+        self.buttomNum1 = tk.Button(
+            self.root, text=self.A1, command= self.join == True)
+        self.buttomNum2 = tk.Button(
+            self.root, text=self.A2, command=self.join == False)
+        self.buttomNum3 = tk.Button(
+            self.root, text=self.A3, command=self.join == False)
 
-class BuildWindow(tk.Tk):
 
-    def __init__(self, number, Q1, A1, A2, A3, explain,  right_ans, point, A4, HowmanyA):
+
+class BuildWindow(threading.Thread):
+    def __init__(self, number, Q1, A1, A2, A3, explain,  right_ans, point, A4, HowmanyA, *args, **kwargs):
+        threading.Thread.__init__(self, *args, **kwargs)
+        self.daemon = True
+        self.start()
         self.Q1 = Q1
         self.A1 = A1
         self.A2 = A2
@@ -206,7 +230,6 @@ class BuildWindow(tk.Tk):
         self.number = number
         self.explain = explain
         self.HowmanyA = HowmanyA
-        self.join = True
         self.createwidget()
 
     def createwidget(self):
@@ -335,9 +358,9 @@ while running:
     if visited[0] == 0 and player.background == img1:   # 總圖問題(編號1)
         run_sound.stop()
         visited[0] = 1
-        result = BuildWindow("是否進入？", "請問是否要進入宿舍？", "進去拉哪次不進去的",
-                             "先不要啦QQ", '讓我再考慮一下><', None, None, None, None, 1)
-        if result.join:
+        whetherEnter = WhetherEnter("是否進入？", "請問是否要進入宿舍？", "進去拉哪次不進去的",
+                             "先不要啦QQ", '讓我再考慮一下><',)
+        if whetherEnter.join:
             BuildWindow("Q1-1", "現今總圖為1998/11/14正式啟用之新總圖書館，請問舊總圖為現今的哪一棟建築？",
                         "校史館", "文學院", "哈哈騙你的啦，總圖沒搬過家", '校史館', 1, 5, "舊總圖紀念館", 4)
             BuildWindow("Q1-2", "下列各項優點當中，何者非總圖的優點？", "位置多，書架後面有許多位子，不想被打擾的同學有自己的空間",
@@ -350,7 +373,9 @@ while running:
         else:
             root = tk.Tk()
             root.withdraw()
-            msg.showinfo('BYEBYE!', 'BYEBYE!!!')
+            msg.showinfo('bye~', 'BYEBYE!!')
+
+
     if visited[1] == 0 and player.background == img2:   # 傅鐘問題(編號2)
         run_sound.stop()
         visited[1] = 1
@@ -389,120 +414,6 @@ while running:
             root = tk.Tk()
             root.withdraw()
             msg.showinfo('BYEBYE!', 'BYEBYE!!!')
-    if visited[11] == 0 and player.background == img12:  # 水源問題(編號12)
-        run_sound.stop()
-        visited[11] = 1
-        result = BuildWindow("是否進入？", "請問是否要進入宿舍？", "進去拉哪次不進去的",
-                             "先不要啦QQ", '讓我再考慮一下><', None, None, None, None, 1)
-        if result.join:
-            BuildWindow("Q12-1", ".請問若貼有台大自行車車證的自行車被拖吊，第幾次之後開始須繳罰金?", "第一次 ",
-                        "第二次", "第三次", '被拖吊第三次開始須繳納50元', 3, 5, "只要有貼車證就不需繳罰金", 4)
-            BuildWindow("Q12-2", "水源拖吊場會有二手自行車的拍賣，提供給學校師生以便宜的價格購買腳踏車的機會，請問每人每學年有幾次的購買機會?",
-                        "一次", "兩次", "三次", '每學年每人可購買二手自行車次數 以 1 次為限', 1, 5, "想買多少就買多少", 4)
-            BuildWindow("Q12-3", "若未申請車證且腳踏車被拖吊，一次須繳納多少金額?", "50",
-                        "100", "300", '須繳納100元/次', 2, 10, "1000", 4)
-            root = tk.Tk()
-            root.withdraw()
-            msg.showinfo('分數小結', '你總共獲得了%d分，繼續加油' % player.point)
-        else:
-            root = tk.Tk()
-            root.withdraw()
-            msg.showinfo('BYEBYE!', 'BYEBYE!!!')
-    if visited[4] == 0 and player.background == img5:  # 新體問題(編號5)
-        run_sound.stop()
-        visited[4] = 1
-        result = BuildWindow("是否進入？", "請問是否要進入宿舍？", "進去拉哪次不進去的",
-                             "先不要啦QQ", '讓我再考慮一下><', None, None, None, None, 1)
-        if result.join:
-            BuildWindow("Q5-1", "下列何者為新體沒有的設施?", "壁球場 ", "技擊室 ",
-                        "手球場(館) ", '新體沒有滑板場', 4, 5, "滑板場", 4)
-            BuildWindow("Q5-2", "請問新體從民國幾年起啟用?", "民國85年", "民國90年",
-                        "民國93年", '新體民國90年啟用', 2, 5, "民國102年", 4)
-            BuildWindow("Q5-3", "請問新體3-5樓的主球場共有多少固定座位?", "3321",
-                        "3221", "2113", '共有3221個', 2, 10, "1322", 4)
-            root = tk.Tk()
-            root.withdraw()
-            msg.showinfo('分數小結', '你總共獲得了%d分，繼續加油' % player.point)
-        else:
-            root = tk.Tk()
-            root.withdraw()
-            msg.showinfo('BYEBYE!', 'BYEBYE!!!')
-    if visited[5] == 0 and player.background == img6:  # 社科問題(編號6)
-        run_sound.stop()
-        visited[5] = 1
-        result = BuildWindow("是否進入？", "請問是否要進入宿舍？", "進去拉哪次不進去的",
-                             "先不要啦QQ", '讓我再考慮一下><', None, None, None, None, 1)
-        if result.join:
-            BuildWindow("Q5-1", "請問社科院由哪位知名建築師設計?", "安藤忠雄", "貝聿銘 ",
-                        "札哈·哈蒂", '台大社科院新館由伊東豊雄(Toyo Ito)所精心設計', 4, 5, "伊東豊雄", 4)
-            BuildWindow("Q5-2", "社科院整棟造價約新台幣多少元?", "16億", "5億",
-                        "35億", '造價：新台幣16億元', 1, 5, "5500萬", 4)
-            BuildWindow("Q5-3", "請問社科院共有幾層樓?", "地上7層、地下2層", "地上8層、地下2層",
-                        "地上7層、地下4層", '地上8層、地下2層', 2, 10, "地上5層、地下2層", 4)
-            root = tk.Tk()
-            root.withdraw()
-            msg.showinfo('分數小結', '你總共獲得了%d分，繼續加油' % player.point)
-        else:
-            root = tk.Tk()
-            root.withdraw()
-            msg.showinfo('BYEBYE!', 'BYEBYE!!!')
-    if visited[6] == 0 and player.background == img7:  # 男一舍問題(編號7)
-        run_sound.stop()
-        visited[6] = 1
-        result = BuildWindow("是否進入？", "請問是否要進入宿舍？", "進去拉哪次不進去的",
-                             "先不要啦QQ", '讓我再考慮一下><', None, None, None, None, 1)
-        if result.join:
-            BuildWindow("Q7-1", "台大男一舍是什麼類型的宿舍？", "男學生宿舍", "男女學生混合宿舍", "男教職員宿舍",
-                        '台大男一舍主要提供一年級的男學生住宿，雖然裡面可能蠻常會遇到女性，不過男一舍確實是男性宿舍喔！', 1, 5, "狗狗宿舍", 4)
-            BuildWindow("Q7-2", "男一舍B1樓沒有提供什麼服務？", "影印部", "撞球場", "卡拉OK",
-                        '雖然偶爾在男一舍可以聽到美妙的歌聲，不過只有在浴室才有這種享受喔，男一舍B1樓有超商、影印部、餐飲部(提供早、午、晚餐及宵夜)、桌球場、撞球場，不過沒有卡拉OK喔！', 3, 5, "餐飲部", 4)
-            BuildWindow("Q7-3", "男一舍位於什麼地方呢？", "長興街", "舟山路", "溫州路",
-                        '台大男一舍位於台北市大安區長興街50號。', 1, 10, "椰林大道", 4)
-            root = tk.Tk()
-            root.withdraw()
-            msg.showinfo('分數小結', '你總共獲得了%d分，繼續加油' % player.point)
-        else:
-            root = tk.Tk()
-            root.withdraw()
-            msg.showinfo('BYEBYE!', 'BYEBYE!!!')
-    if visited[7] == 0 and player.background == img8:  # 校門問題(編號8)
-        run_sound.stop()
-        visited[0] = 1
-        result = BuildWindow("是否進入？", "請問是否要進入宿舍？", "進去拉哪次不進去的",
-                             "先不要啦QQ", '讓我再考慮一下><', None, None, None, None, 1)
-        if result.join:
-            BuildWindow("Q8-1", "台大校門是什麼顏色的呢？", "銀白色", "紅褐色", "七彩霓虹色",
-                        '台大校門使用褐色面磚與唭哩岸石建造，色彩與校園校舍同為咖啡色系。', 2, 5, "暗紫色", 4)
-            BuildWindow("Q8-2", "台大校門最早在什麼時候建成呢？？", "1931", "1963", "2004",
-                        '台大校門建於日治時期昭和6年，是由臺灣總督府總督官房營繕課設計。', 1, 5, "還沒蓋好", 4)
-            BuildWindow("Q8-3", "台大校門中間的「國立臺灣大學」字樣是誰所題的呢？", "傅斯年", "蔣中正",
-                        "朱家驊", '臺大校門中間的「國立臺灣大學」字樣是由前中華民國教育部部長朱家驊題字。', 3, 10, "管中閔", 4)
-            root = tk.Tk()
-            root.withdraw()
-            msg.showinfo('分數小結', '你總共獲得了%d分，繼續加油' % player.point)
-        else:
-            root = tk.Tk()
-            root.withdraw()
-            msg.showinfo('BYEBYE!', 'BYEBYE!!!')
-    if visited[8] == 0 and player.background == img9:  # 管理學院問題(編號9)
-        run_sound.stop()
-        visited[0] = 1
-        result = BuildWindow("是否進入？", "請問是否要進入宿舍？", "進去拉哪次不進去的",
-                             "先不要啦QQ", '讓我再考慮一下><', None, None, None, None, 1)
-        if result.join:
-            BuildWindow("Q9-1", "台大管院希望培養學生什麼樣的能力？", "獨立思考與解決問題的能力", "如猴猴一般快樂玩耍的能力", "優秀的跑跳能力",
-                        '教學方面，管理學院期望招收及培育具有領導管理潛能的一流學生，培養學生獨立思考與解決問題能力。', 1, 5, "我也不知道要培養什麼樣的能力", 4)
-            BuildWindow("Q9-2", "台大管院大學部共有幾個系？", "4", "5", "6",
-                        '台大管理學院大學部有國企、工管、會計、財金、資管共五個系。', 2, 5, "7", 4)
-            BuildWindow("Q9-3", "台大管院財金系知名的日月大賢者是哪一位教授呢？", "陳明賢", "陳聖賢", "李賢源",
-                        '陳明賢教授因爲對學生的溫馨關懷、熱心協助，尤其是他開設的財務金融入門課程，讓大一學生對未來有了更明確的方向，對學生而言如日月一般引領著前進，因而被學生尊稱為日月大賢者。', 1, 10, "這個人是虛構的", 4)
-            root = tk.Tk()
-            root.withdraw()
-            msg.showinfo('分數小結', '你總共獲得了%d分，繼續加油' % player.point)
-        else:
-            root = tk.Tk()
-            root.withdraw()
-            msg.showinfo('BYEBYE!', 'BYEBYE!!!')
 
     for event in pygame.event.get():  # 取得輸入，把他得到的動作並成為一個list
         if event.type == pygame.QUIT:  # 沒有函數的離開(?)
@@ -513,13 +424,14 @@ while running:
                 running = False
 
     all_sprites.update()  # 更新遊戲
-    screen.blit(player.background, (0, 0))  # 畫面顯示改成了圖片
-    all_sprites.draw(screen)  # 把all_sprite裡面的東西都畫出來
-    draw_text(screen, str(player.energy), 30, WIDTH/2, 12)
-    draw_text(screen, str("ENERGY:"), 30, WIDTH/2-80, 12)
-    draw_text(screen, str(int(player.time)), 30, WIDTH/2, 50)
-    draw_text(screen, str("TIME:"), 30, WIDTH/2-80, 50)
-    draw_text(screen, str("POINT:"), 30, WIDTH/2-80, 100)
-    draw_text(screen, str(player.point), 30, WIDTH/2, 100)
-    pygame.display.update()  # 更新
+    if __name__ == '__main__':
+        screen.blit(player.background, (0, 0))  # 畫面顯示改成了圖片
+        all_sprites.draw(screen)  # 把all_sprite裡面的東西都畫出來
+        draw_text(screen, str(player.energy), 30, WIDTH/2, 12)
+        draw_text(screen, str("ENERGY:"), 30, WIDTH/2-80, 12)
+        draw_text(screen, str(int(player.time)), 30, WIDTH/2, 50)
+        draw_text(screen, str("TIME:"), 30, WIDTH/2-80, 50)
+        draw_text(screen, str("POINT:"), 30, WIDTH/2-80, 100)
+        draw_text(screen, str(player.point), 30, WIDTH/2, 100)
+        pygame.display.update()  # 更新
 pygame.quit()  # 離開

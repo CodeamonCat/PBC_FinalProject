@@ -2,7 +2,6 @@ import pygame
 import os
 import tkinter as tk
 from tkinter import messagebox as msg
-import threading
 WIDTH = 401
 HEIGHT = 330
 FPS = 10  # 偵數，一個指令0.1秒 ->時間每次加0.1
@@ -211,7 +210,6 @@ class BuildWindow(tk.Tk):
 
     def createwidget(self):
         self.root = tk.Tk()
-        print(threading.enumerate())
         self.root.title(self.number)
         self.heading = tk.Label(self.root, text=self.Q1)
         self.buttomNum1 = tk.Button(
@@ -233,7 +231,7 @@ class BuildWindow(tk.Tk):
         self.root.mainloop()
 
     def clickbutton1(self):
-        print(threading.enumerate())
+        print("PRESS 1")
         if self.A1 == '進去拉哪次不進去的':
             self.join = True
             self.root.destroy()
@@ -245,7 +243,7 @@ class BuildWindow(tk.Tk):
             self.root.destroy()
 
     def clickbutton2(self):
-        print(threading.enumerate())
+        print("PRESS 2")
         if self.A2 == '先不要啦QQ':
             self.join = False
             self.root.destroy()
@@ -257,7 +255,7 @@ class BuildWindow(tk.Tk):
             self.root.destroy()
 
     def clickbutton3(self):
-        print(threading.enumerate())
+        print("PRESS 3")
         if self.A3 == '讓我再考慮一下><':
             self.join = False
             self.root.destroy()
@@ -268,7 +266,7 @@ class BuildWindow(tk.Tk):
             self.root.destroy()
 
     def clickbutton4(self):
-        print(threading.enumerate())
+        print("PRESS 4")
         msg.showinfo(self.number, self.explain)
         if self.right_ans == 4:
             player.point += self.point
@@ -313,7 +311,6 @@ player.background = img4
 pygame.mixer.music.play(-1)
 run_sound.play()
 while running:
-    print(threading.enumerate())
     clock.tick(FPS)  # 一秒鐘之內最多只能執行10次
 
     if show_init:  # 初始化界面
