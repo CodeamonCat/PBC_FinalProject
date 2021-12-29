@@ -1,11 +1,8 @@
-import CMKuan_game, CMKuan_player, CMKuan_event
+import CMKuan_game
 import pygame
 
 def game_loop(gameName):
     game_exit = False
-    allsprite = pygame.sprite.Group()
-    player = CMKuan_player.Player()
-    allsprite.add(player)
     # event = CMKuan_event.Event()
 
     while not game_exit:
@@ -19,8 +16,7 @@ def game_loop(gameName):
         # game flow
         gameName.display_background()
         gameName.display_status()
-        allsprite.update()
-        allsprite.draw(gameName.get_screen())
+        gameName.display_player()
         # event.display_event()
         pygame.display.update()
 
@@ -32,5 +28,5 @@ if __name__ == '__main__':
     pygame.display.update()
     # display game page
     CMKGame.init_screen()
-    CMKGame.init_clock()
+    CMKGame.init_setting()
     game_loop(CMKGame)

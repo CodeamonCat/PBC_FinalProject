@@ -1,14 +1,16 @@
+import CMKuan_game
 import pygame
-from pygame.constants import K_DOWN, K_LEFT, K_RIGHT, K_UP, K_u
+from pygame.constants import K_DOWN, K_LEFT, K_RIGHT, K_UP
 
 class Player(pygame.sprite.Sprite):
 
     def __init__(self):
         self.__height = 600
-        self.__width = 800
+        self.__mapLen = len(CMKuan_game.Game.get_map())
         self.__player_height = 60
         self.__player_width = 60
         self.__speed = 5
+        self.__width = 800
         self.image = pygame.Surface((self.__player_width, self.__player_height))
         self.image = pygame.transform.scale(Player.get_image('image\管中閔(左).jpg', self.__player_width, self.__player_height), (self.__player_width, self.__player_height))
         pygame.sprite.Sprite.__init__(self)
@@ -18,28 +20,36 @@ class Player(pygame.sprite.Sprite):
 
     def update(self):
         keys = pygame.key.get_pressed()
-        
-        # player move
+
+        # move
         if keys[K_RIGHT]:
-            self.rect.x += self.__speed
-            self.image = pygame.transform.scale(Player.get_image('image\管中閔(右).jpg', self.__player_width, self.__player_height), (self.__player_width, self.__player_height))
+            if not ((self.rect.right > self.__width) and (CMKuan_game.Game.get_position()%self.__mapLen == (self.__mapLen-1))):
+                self.rect.x += self.__speed
+                self.image = pygame.transform.scale(Player.get_image('image\管中閔(右).jpg', self.__player_width, self.__player_height), (self.__player_width, self.__player_height))
         if keys[K_DOWN]:
-            self.rect.y += self.__speed
+            if not ((self.rect.bottom > self.__height) and (CMKuan_game.Game.get_position() >= (self.__mapLen*(self.__mapLen-1)))):
+                self.rect.y += self.__speed
         if keys[K_LEFT]:
-            self.rect.x -= self.__speed
-            self.image = pygame.transform.scale(Player.get_image('image\管中閔(左).jpg', self.__player_width, self.__player_height), (self.__player_width, self.__player_height))
+            if not((self.rect.left < 0) and (CMKuan_game.Game.get_position()%3 == 0)):
+                self.rect.x -= self.__speed
+                self.image = pygame.transform.scale(Player.get_image('image\管中閔(左).jpg', self.__player_width, self.__player_height), (self.__player_width, self.__player_height))
         if keys[K_UP]:
-            self.rect.y -= self.__speed
+            if not ((self.rect.top < 0) and (CMKuan_game.Game.get_position() < self.__mapLen)):
+                self.rect.y -= self.__speed
 
         # boundary case
-        if self.rect.right >= self.__width:
+        if (self.rect.right > self.__width) and (CMKuan_game.Game.get_position()%self.__mapLen != (self.__mapLen-1)):
             self.rect.x -= (self.__width-self.__player_width)
-        if self.rect.bottom >= self.__height:
+            CMKuan_game.Game.update_class_map(CMKuan_game.Game.get_position()+1)
+        if (self.rect.bottom > self.__height) and (CMKuan_game.Game.get_position() < (self.__mapLen*(self.__mapLen-1))):
             self.rect.y -= (self.__height-self.__player_height)
-        if self.rect.left <= 0:
+            CMKuan_game.Game.update_class_map(CMKuan_game.Game.get_position()+self.__mapLen)
+        if (self.rect.left < 0) and (CMKuan_game.Game.get_position()%3 != 0):
             self.rect.x += (self.__width-self.__player_width)
-        if self.rect.top <= 0:
+            CMKuan_game.Game.update_class_map(CMKuan_game.Game.get_position()-1)
+        if (self.rect.top < 0) and (CMKuan_game.Game.get_position() >= self.__mapLen):
             self.rect.y += (self.__height-self.__player_height)
+            CMKuan_game.Game.update_class_map(CMKuan_game.Game.get_position()-self.__mapLen)
 
     @classmethod
     def get_image(cls, fileName, image_width, image_height):
