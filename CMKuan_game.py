@@ -1,4 +1,3 @@
-import CMKuan_player
 import pygame
 
 class Game:
@@ -30,11 +29,6 @@ class Game:
                             display_cover = False
                     if event.type == pygame.QUIT:
                         pygame.quit()
-
-    def display_player(self):
-        self.__player = CMKuan_player.Player()
-        
-
 
     def display_status(self):
         background_color = (255, 255, 255)

@@ -6,6 +6,7 @@ def game_loop(gameName):
     allsprite = pygame.sprite.Group()
     player = CMKuan_player.Player()
     allsprite.add(player)
+    event = CMKuan_event.Event()
 
     while not game_exit:
         for event in pygame.event.get():
@@ -18,9 +19,9 @@ def game_loop(gameName):
         # game flow
         gameName.display_background()
         gameName.display_status()
-        gameName.display_player()
-        # gameName.display_event()
-                
+        allsprite.update()
+        allsprite.draw(gameName.get_screen())
+        event.display_event()
         pygame.display.update()
 
 if __name__ == '__main__':
