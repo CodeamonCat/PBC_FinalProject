@@ -1,5 +1,5 @@
 import CMKuan_game
-import pygame, os
+import pygame
 
 def game_loop(gameName):
     game_exit = False

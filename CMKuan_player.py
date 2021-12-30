@@ -1,5 +1,5 @@
 import CMKuan_game
-import pygame, os
+import pygame
 from pygame.constants import K_DOWN, K_LEFT, K_RIGHT, K_UP
 
 class Player(pygame.sprite.Sprite):
