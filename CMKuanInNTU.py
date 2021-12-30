@@ -12,14 +12,18 @@ def game_loop(gameName):
                         game_exit = True
             if event.type == pygame.QUIT:
                 game_exit = True
+        if gameName.get_timer()//40 <= 0:
+            game_exit = True
+            
         # game flow
         gameName.display_background()
         gameName.display_status()
         gameName.display_event()
         gameName.display_player()
         gameName.check_event()
-        gameName.update_clock()
+        gameName.update_timer()
         pygame.display.update()
+    gameName.display_ending()
 
 if __name__ == '__main__':
     CMKGame = CMKuan_game.Game()

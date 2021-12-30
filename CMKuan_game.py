@@ -19,6 +19,7 @@ class Game:
         self.__text_background_color = (255, 255, 255)   # white
         self.__text_color = (0, 0, 0)    # black
         self.__text_size = 20
+        self.__timer = 20*40
 
     def check_event(self):
         player_x = self.__player.get_rect_x()
@@ -103,10 +104,23 @@ class Game:
             for event in pygame.event.get():
                     if event.type == pygame.KEYDOWN:
                         if event.key == event.key:
-                            print("===leave cover page")
                             display_cover = False
                     if event.type == pygame.QUIT:
                         pygame.quit()
+    
+    def display_ending(self):
+        ending_background = Game.get_image('image\start.jpg', self.__screen_width, self.__screen_height)
+        self.__screen.blit(ending_background, (0, 0))
+        self.display_text_with_position("恭喜您獲得了%d分!" % self.__player.get_point(), 50, (self.__screen_width//2), (self.__screen_height//2))
+        self.display_text_with_position("按任意鍵離開", 38, (self.__screen_width//2), (self.__screen_height//2 + 100))
+        pygame.display.update()
+
+        ending = False
+        while not ending:
+            for event in pygame.event.get():
+                if (event.type == pygame.KEYDOWN) or (event.type == pygame.QUIT):
+                    ending = True
+                    pygame.quit()
     
     def display_event(self):
         event_flag = self.__event.display_event_flag(Game.__position)
@@ -123,7 +137,7 @@ class Game:
     def display_status(self):
         pink = (255, 210, 210)
         pygame.draw.rect(self.__screen, pink, (650, 0, 150, 100))  # (x, y, width, height)
-        text, text_rect = self.display_text("Time: "+str(self.__player.get_countdown()), self.__text_size)
+        text, text_rect = self.display_text("Time: "+str(self.get_timer()//40), self.__text_size)
         text_rect.center = (725, 30)
         self.__screen.blit(text, text_rect)
         text, text_rect = self.display_text("Point: "+str(self.__player.get_point()), self.__text_size)
@@ -158,6 +172,9 @@ class Game:
 
     def get_screen(self):
         return (self.__screen)
+    
+    def get_timer(self):
+        return (self.__timer)
 
     def init_screen(self):
         pygame.init()
@@ -183,9 +200,10 @@ class Game:
         """for test function used"""
         print(self.__player.get_rect_x())
         print(self.__player.get_rect_y())
-    
-    def update_clock(self):
+
+    def update_timer(self):
         self.__clock.tick(self.__FPS)
+        self.__timer -= 1
     
     @classmethod
     def get_image(cls, fileName, image_width, image_height):
