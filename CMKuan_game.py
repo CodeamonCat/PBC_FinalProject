@@ -19,7 +19,7 @@ class Game:
         self.__text_background_color = (255, 255, 255)   # white
         self.__text_color = (0, 0, 0)    # black
         self.__text_size = 20
-        self.__timer = 20*40
+        self.__timer = 120*40
 
     def check_event(self):
         player_x = self.__player.get_rect_x()
