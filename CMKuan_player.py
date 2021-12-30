@@ -5,6 +5,7 @@ from pygame.constants import K_DOWN, K_LEFT, K_RIGHT, K_UP
 class Player(pygame.sprite.Sprite):
 
     def __init__(self):
+        self.__countdown = 300
         self.__height = 600
         self.__mapLen = len(CMKuan_game.Game.get_map())
         self.__player_height = 60
@@ -21,6 +22,9 @@ class Player(pygame.sprite.Sprite):
     
     def add_point(self, point):
         self.__point += point
+
+    def get_countdown(self):
+        return (self.__countdown)
 
     def get_point(self):
         return (self.__point)

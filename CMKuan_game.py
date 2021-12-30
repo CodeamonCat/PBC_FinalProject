@@ -97,6 +97,7 @@ class Game:
         self.display_text_with_position("在時間內盡量獲得高分吧！", 28, (self.__screen_width//2), (self.__screen_height//2 + 110))
         self.display_text_with_position_color("~按任何按鍵開始~", 60, (self.__screen_width//2), (self.__screen_height//2 + 200), self.__text_background_color, (255, 0, 0))
         pygame.display.update()
+
         display_cover = True
         while display_cover:
             for event in pygame.event.get():
@@ -120,16 +121,13 @@ class Game:
         self.__allsprite.draw(self.__screen)
 
     def display_status(self):
-        background_color = (255, 255, 255)
-        pygame.draw.rect(self.__screen, background_color, (600,0,200,100))  # (x, y, width, height)
-        """
-        show status text here if needed
-        """
-        text, text_rect = self.display_text("Time", self.__text_size)
-        text_rect.topright = self.__screen_width, 0 # (right, top)
+        pink = (255, 210, 210)
+        pygame.draw.rect(self.__screen, pink, (650, 0, 150, 100))  # (x, y, width, height)
+        text, text_rect = self.display_text("Time: "+str(self.__player.get_countdown()), self.__text_size)
+        text_rect.center = (725, 30)
         self.__screen.blit(text, text_rect)
         text, text_rect = self.display_text("Point: "+str(self.__player.get_point()), self.__text_size)
-        text_rect.topright = self.__screen_width, 40 # (right, top)
+        text_rect.center = (725, 70)
         self.__screen.blit(text, text_rect)
     
     def display_text(self, text, size):
