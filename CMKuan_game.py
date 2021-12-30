@@ -17,8 +17,8 @@ class Game:
         self.__screen = None
         self.__screen_height = 600
         self.__screen_width = 800
-        self.__text_background_color = (50, 205, 50)   # #32CD32_lightgreen
-        self.__text_color = (0, 0, 139)    # #00008B_darkblue
+        self.__text_background_color = (255, 255, 255)   # white
+        self.__text_color = (0, 0, 0)    # black
         self.__text_size = 20
 
     def check_event(self):
@@ -88,10 +88,14 @@ class Game:
     def display_cover(self):
         cover_background = Game.get_image('image\start.jpg', self.__screen_width, self.__screen_height)
         self.__screen.blit(cover_background, (0, 0))
-        """
-        show text here if needed
-        """
+        self.display_text_with_position("管爺每天過者0037睡覺，0939起床的日子", 28, (self.__screen_width//2), (self.__screen_height//2 - 200))
+        self.display_text_with_position("卻被每天都在趕Deadline同學質疑他到底懂不懂台大校", 28, (self.__screen_width//2), (self.__screen_height//2 - 130))
+        self.display_text_with_position("否則怎麼可能那麼爽QQ", 40, (self.__screen_width//2), (self.__screen_height//2 - 60))
+        self.display_text_with_position("用方向鍵操控管爺，並且蒐集散落在台大各個角落的問題", 28, (self.__screen_width//2), (self.__screen_height//2 + 40))
+        self.display_text_with_position("在時間內盡量獲得高分吧！", 28, (self.__screen_width//2), (self.__screen_height//2 + 110))
+        self.display_text_with_position_color("~按任何按鍵開始~", 60, (self.__screen_width//2), (self.__screen_height//2 + 200), self.__text_background_color, (255, 0, 0))
         pygame.display.update()
+
         display_cover = True
         while display_cover:
             for event in pygame.event.get():
@@ -136,6 +140,13 @@ class Game:
     def display_text_with_position(self, text, size, centerx, centery):
         text_font = pygame.font.Font('msjh.ttf', size)
         text = text_font.render(text, True, self.__text_color, self.__text_background_color)
+        text_rect = text.get_rect()
+        text_rect.centerx, text_rect.centery = centerx, centery
+        self.__screen.blit(text, text_rect)
+
+    def display_text_with_position_color(self, text, size, centerx, centery, t_color, t_b_color):
+        text_font = pygame.font.Font('msjh.ttf', size)
+        text = text_font.render(text, True, t_color, t_b_color)
         text_rect = text.get_rect()
         text_rect.centerx, text_rect.centery = centerx, centery
         self.__screen.blit(text, text_rect)
