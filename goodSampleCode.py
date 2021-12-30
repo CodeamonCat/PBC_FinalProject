@@ -1,5 +1,4 @@
-import sys
-import pygame
+import sys, pygame
 from pygame.locals import QUIT
 
 class Game:

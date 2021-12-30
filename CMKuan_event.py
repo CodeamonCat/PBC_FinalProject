@@ -1,5 +1,4 @@
 import json, pygame
-from pygame import event
 
 class Event:
     __posMatrix = []
