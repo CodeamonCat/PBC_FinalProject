@@ -17,8 +17,13 @@ class Game:
         self.__screen = None
         self.__screen_height = 600
         self.__screen_width = 800
+<<<<<<< HEAD
         self.__text_background_color = (255, 255, 255)   # white
         self.__text_color = (0, 0, 0)    # black
+=======
+        self.__text_background_color = (255, 255, 255)   # #32CD32_lightgreen
+        self.__text_color = (0, 0, 0)    # #00008B_darkblue
+>>>>>>> de5a5b50a9519337c8293b4aa461e8933059ad62
         self.__text_size = 20
 
     def check_event(self):
@@ -70,14 +75,14 @@ class Game:
         if guess: self.__player.add_point(10)
 
     def display_background(self):
-        image_path = os.path.join("image", str(Game.__position)+".png")
+        image_path = os.path.join("image", str(Game.__position)+".jpg")
         self.__screen.blit(Game.get_image(image_path, self.__screen_width, self.__screen_height), (0, 0))
 
     def display_button(self, text, answer, size, centerx, centery):
         answer = (text == answer)
         text_font = pygame.font.Font('msjh.ttf', size)
         text = text_font.render(text, True, self.__text_color, self.__text_background_color)
-        text_clicked = text_font.render("Wront", True, self.__text_color, self.__text_background_color)
+        text_clicked = text_font.render("Wrong", True, self.__text_color, self.__text_background_color)
         if answer: text_clicked = text_font.render("Correct", True, self.__text_color, self.__text_background_color)
         text_rect = text.get_rect()
         text_rect.centerx, text_rect.centery = centerx, centery
@@ -88,12 +93,33 @@ class Game:
     def display_cover(self):
         cover_background = Game.get_image('image\start.jpg', self.__screen_width, self.__screen_height)
         self.__screen.blit(cover_background, (0, 0))
+<<<<<<< HEAD
         self.display_text_with_position("管爺每天過者0037睡覺，0939起床的日子", 28, (self.__screen_width//2), (self.__screen_height//2 - 200))
         self.display_text_with_position("卻被每天都在趕Deadline同學質疑他到底懂不懂台大校", 28, (self.__screen_width//2), (self.__screen_height//2 - 130))
         self.display_text_with_position("否則怎麼可能那麼爽QQ", 40, (self.__screen_width//2), (self.__screen_height//2 - 60))
         self.display_text_with_position("用方向鍵操控管爺，並且蒐集散落在台大各個角落的問題", 28, (self.__screen_width//2), (self.__screen_height//2 + 40))
         self.display_text_with_position("在時間內盡量獲得高分吧！", 28, (self.__screen_width//2), (self.__screen_height//2 + 110))
         self.display_text_with_position_color("~按任何按鍵開始~", 60, (self.__screen_width//2), (self.__screen_height//2 + 200), self.__text_background_color, (255, 0, 0))
+=======
+        text, text_rect = self.display_text("管爺每天過者0037睡覺，0939起床的日子", 28)
+        text_rect.center = self.__screen_width/2, (self.__screen_height/2) - 160
+        self.__screen.blit(text, text_rect)
+        text, text_rect = self.display_text("卻被每天都在趕Deadline同學質疑他到底懂不懂台大校園", 28)
+        text_rect.center = self.__screen_width/2, (self.__screen_height/2) - 130
+        self.__screen.blit(text, text_rect)
+        text, text_rect = self.display_text("否則怎麼可能那麼爽QQ", 28)
+        text_rect.center = self.__screen_width/2, (self.__screen_height/2) - 40
+        self.__screen.blit(text, text_rect)
+        text, text_rect = self.display_text("~按任何按鍵開始~", 38)
+        text_rect.center = self.__screen_width/2, (self.__screen_height/2) + 200
+        self.__screen.blit(text, text_rect)
+        text, text_rect = self.display_text("用方向鍵操控管爺，並且蒐集散落在台大各個角落的問題", 28)
+        text_rect.center = self.__screen_width/2, (self.__screen_height/2) + 30
+        self.__screen.blit(text, text_rect)
+        text, text_rect = self.display_text("在時間內盡量獲得高分吧！", 28)
+        text_rect.center = self.__screen_width/2, (self.__screen_height/2) + 100
+        self.__screen.blit(text, text_rect)
+>>>>>>> de5a5b50a9519337c8293b4aa461e8933059ad62
         pygame.display.update()
 
         display_cover = True
