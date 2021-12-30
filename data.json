@@ -1,243 +1,237 @@
 {
     "0": [
         [{
-            "question": "question1",
-            "option1": "answer1",
-            "option2": "answer2",
-            "option3": "answer3",
-            "answer": "1"
+            "question": "在台大校區中有許多處宿舍區，其中［女一舍］獨樹一格，於宿舍中央設有天井，令人心曠神怡。請問若是住在［女一舍］一學期（不包含暑假）的租金為多少元？",
+            "option1": "6580元",
+            "option2": "9300元",
+            "option3": "10400元",
+            "answer": "option2",
+            "explanation":"［女一舍］學期中收費9300元，暑假收費3740元，比男一貴1000元"
         }],
         [{
-            "question": "question2",
-            "option1": "answer1",
-            "option2": "answer2",
-            "option3": "answer3"
+            "question": "大一女美食餐廳當中，請問GOOGLE評分網路最高且評論最多的餐廳為何？",
+            "option1": "厚宅咖哩",
+            "option2": "椰林燒臘",
+            "option3": "CoCo壹番屋 公館台大店",
+            "answer": "option1",
+            "explanation": "GOOGLE評分4.3顆星，共456則評論；CoCo壹番屋並不屬於大一女美食餐廳。"
         }],
         [{
-            "question": "question3",
-            "option1": "answer1",
-            "option2": "answer2",
-            "option3": "answer3"
+            "question": "台大歷任校長都頭痛的校園腳踏車管理問題，現在有了解決方案，資工系學生黃品諺提出「自行車分區淨空專案」，將停車場分成彩虹顏色的7個停放區，然後進行定期定時清空作業，曾經3天就清出過去半年才能清完的廢棄或閒置腳踏車，成效非常好。請問離大一女門口最近的腳踏車停放區域是甚麼顏色？",
+            "option1": "紅色",
+            "option2": "綠色",
+            "option3": "紫色",
+            "answer": "option3",
+            "explanation": "距離最遠的是紅色，最近的是深藍色，紫色在側邊。"
+
         }]
     ],
     "1": [
         [{
-            "question": "question1",
-            "option1": "answer1",
-            "option2": "answer2",
-            "option3": "answer3"
+            "question": "今天早8的課在博雅，若是騎機車到台大，下列何處停車場最接近博雅教學館？",
+            "option1": "新生南路停車場",
+            "option2": "新體停車場",
+            "option3": "台大立體機車停車場（基隆路）",
+            "answer": "option3",
+            "explanation": "台大有眾多機車停車場，因為校園內禁止騎乘摩托車的緣故，台大校園內的機車車禍為0，超厲害的。"
         }],
         [{
-            "question": "question2",
-            "option1": "answer1",
-            "option2": "answer2",
-            "option3": "answer3"
+            "question": "國立臺灣大學博雅教學館，為國立臺灣大學五棟教學館之一。落成於2012-10-20，請問在博雅教學館落成之後，哪一個教學館尚未落成？",
+            "option1": "普通教學館",
+            "option2": "綜合教學館",
+            "option3": "共同教學館",
+            "answer": "option2",
+            "explanation": "綜合教學館原名綜合教室，2018年新館落成，除有能夠容納600人而為全校最大教室的錢思亮紀念講堂、多達120萬冊藏書的高密度自動化書庫，以及多處學習開放空間與學生討論室，提供同學更多自由運用的空間。"
         }],
         [{
-            "question": "question3",
-            "option1": "answer1",
-            "option2": "answer2",
-            "option3": "answer3"
+            "question": "在博雅下課之後，想要找個地方看書，哪裡距離你最近可以讓你坐下來好好看書呢？",
+            "option1": "社科院圖書館",
+            "option2": "總圖書館",
+            "option3": "博雅教學館",
+            "answer": "option3",
+            "explanation": "博雅教室外就有閱讀專區了呦"
         }]
     ],
     "2": [
         [{
-            "question": "question1",
-            "option1": "answer1",
-            "option2": "answer2",
-            "option3": "answer3"
+            "question": "台大成立於1928年，至今歷史已經非常悠久，請問台大在日治時期的名稱是？",
+            "option1": "台灣帝國大學",
+            "option2": "台北帝國大學",
+            "option3": "東亞帝國大學",
+            "answer": "option1",
+            "explanation": "國立台灣大學在日治時期被稱為台北帝國大學，如今很多台大學生也喜愛用此稱呼自居。"
         }],
         [{
-            "question": "question2",
-            "option1": "answer1",
-            "option2": "answer2",
-            "option3": "answer3"
+            "question": "台大的校徽擁有許多的元素，請問下列何者不在校徽之中？",
+            "option1": "梅花",
+            "option2": "太陽",
+            "option3": "椰子樹",
+            "answer": "option1",
+            "explanation": "台大校徽的元素包含梅花、傅鐘以及椰子樹，以深紅色為基底。"
         }],
         [{
-            "question": "question3",
-            "option1": "answer1",
-            "option2": "answer2",
-            "option3": "answer3"
+            "question": "所謂的「舊總圖」，指的是以下何者？",
+            "option1": "普通教學館",
+            "option2": "鹿鳴堂",
+            "option3": "校史館",
+            "answer": "option3",
+            "explanation": "舊總圖書館（今校史館）起造於1929年，歷經五次擴建終至今日規模"
         }]
     ],
     "3": [
         [{
-            "question": "question1",
-            "option1": "answer1",
-            "option2": "answer2",
-            "option3": "answer3"
+            "question": "請問下列的系所之中，哪個是imposter?",
+            "option1": "資訊管理系",
+            "option2": "科技管理系",
+            "option3": "經濟系",
+            "answer": "option3",
+            "explanation": "經濟系屬於社會科學院，雖然大部分的學校將其放在管理學院，但是經濟系探索的更多是人類活動和社會之間的關聯，所以屬於社會科學院。"
         }],
         [{
-            "question": "question2",
-            "option1": "answer1",
-            "option2": "answer2",
-            "option3": "answer3"
+            "question": "「他」的專長在於財務報表領域，桃李滿天下，目前眾多董事長都是他的得意門生，是大家愛戴的教授，也非常喜歡找女同學聊天，請問他是哪一位教授呢？",
+            "option1": "李明賢教授",
+            "option2": "陳明賢教授",
+            "option3": "羅大明教授",
+            "answer": "option2",
+            "explanation": "陳明賢教授因爲對學生的溫馨關懷、熱心協助，尤其是他開設的財務金融入門課程，讓大一學生對未來有了更明確的方向，對學生而言如日月一般引領著前進，因而被學生尊稱為日月大賢者。"
         }],
         [{
-            "question": "question3",
-            "option1": "answer1",
-            "option2": "answer2",
-            "option3": "answer3"
+            "question": "國立台灣大學管理學院的前身為臺灣省立法商學院，於1959年併入台灣大學，請問當時管理學院擁有幾個科系？",
+            "option1": "0",
+            "option2": "1",
+            "option3": "5",
+            "answer": "option1",
+            "explanation": "1948年教育部核准臺灣大學法學院增設商學系，分為國際貿易組、工商管理組、會計銀行組，為當時國內唯一的商學教育科系。此四組於1985年均升格為系，隨著1987年管理學院成立，此四系也脫離了法學院。所以當時並沒有「管理學院」。"
         }]
     ],
     "4": [
         [{
-            "question": "question1",
-            "option1": "answer1",
-            "option2": "answer2",
-            "option3": "answer3"
+            "question": "請問社科院圖書館(辜振甫紀念圖書館)是由哪位知名建築師設計?",
+            "option1": "安藤忠雄",
+            "option2": "伊東豊雄",
+            "option3": "札哈·哈蒂",
+            "answer": "option2",
+            "explanation": "不同於一般將圖書館置於學院內部的做法，伊東豐雄將圖書館獨立成棟，表達圖書館是學校內精神象徵之一的理念。三面牆均為玻璃的半透明空間設計，則是希望可以藉此望見窗外的林木、草地，以親近大自然。屋頂的形狀是由像雲朵又像樹葉的橢圓組成，伊東豊雄說這是他的畢生得意之作。"
         }],
         [{
-            "question": "question2",
-            "option1": "answer1",
-            "option2": "answer2",
-            "option3": "answer3"
+            "question": "請問社科院共有幾層樓?",
+            "option1": "地上7層、地下2層",
+            "option2": "地上8層、地下2層",
+            "option3": "地上5層、地下2層",
+            "answer": "option2",
+            "explanation": "這些樓層"
         }],
         [{
-            "question": "question3",
-            "option1": "answer1",
-            "option2": "answer2",
-            "option3": "answer3"
+            "question": "請問下列哪個系所曾經和社科四系在同個系館中？",
+            "option1": "心理系",
+            "option2": "歷史系",
+            "option3": "法律系",
+            "answer": "option2",
+            "explanation": "台大八十四學年度（1995年）第二學期第二次校務會議第一次延會決議通過法律系升格為「法律學院」，原法學院更名為「社會科學院」，兩院於1999年7月正式分離。"
         }]
     ],
     "5": [
         [{
-            "question": "question1",
-            "option1": "answer1",
-            "option2": "answer2",
-            "option3": "answer3"
+            "question": "下列何者為新體沒有的設施?",
+            "option1": "技擊室",
+            "option2": "壁球場",
+            "option3": "網球場",
+            "answer": "option3",
+            "explanation": "多功能球場可機動區分成籃球場兩面、排球場四面、手球場兩面或羽球場15面，但是就是不能拿來當網球場QQ"
         }],
         [{
-            "question": "question2",
-            "option1": "answer1",
-            "option2": "answer2",
-            "option3": "answer3"
+            "question": "請問新體3-5樓的主球場不曾主辦過哪一個活動?",
+            "option1": "台北國際動漫節(TICA)",
+            "option2": "世界室內足球錦標賽場地",
+            "option3": "台灣同人誌販售會（CWT）",
+            "answer": "option1",
+            "explanation": "台北國際動漫節曾在南港展覽館和世貿中心舉辦，未曾來過新體。新體為台北國際動漫節的永久舉辦場地，而新體也曾經當過一屆世界室內足球錦標賽的場地"
         }],
         [{
-            "question": "question3",
-            "option1": "answer1",
-            "option2": "answer2",
-            "option3": "answer3"
+            "question": "請問新體3-5樓的主球場共有多少固定座位",
+            "option1": "3507",
+            "option2": "2521",
+            "option3": "3321",
+            "answer": "option3",
+            "explanation": "共有3221個"
         }]
     ],
     "6": [
         [{
-            "question": "question1",
-            "option1": "answer1",
-            "option2": "answer2",
-            "option3": "answer3"
+            "question": "醉月湖的舊稱為何？",
+            "option1": "瑠公圳第四蓄水池",
+            "option2": "牛湳池",
+            "option3": "文心堤",
+            "answer": "option2",
+            "explanation": "醉月湖原本是農用池埤，為調節瑠公圳之用，舊稱為牛湳池"
+
         }],
         [{
-            "question": "question2",
-            "option1": "answer1",
-            "option2": "answer2",
-            "option3": "answer3"
+            "question": "醉月湖名稱由來為何？",
+            "option1": "〈春夜宴從弟桃花源序〉：「開瓊筵以坐花，飛羽觴而醉月」",
+            "option2": "景色之美足以閉月，引此取名為「醉月」",
+            "option3": "校長經過時因陶醉於此月色，而因此取「醉月」為其名",
+            "explanation": "1973年，鄭梓和蘇元良兩位同學為舉辦畢業聯誼會，因此策劃了划船比賽，為了能使畢業生踴躍參與及吸引校內其它同學的目光，這兩位同學將比賽地點命名「醉月湖」，並於海報上刊登活動日期3月19日～20日，直到划船比賽的當日，「醉月湖」之名才出現於《畢聯會訊》，而後媒體及校內人士廣為稱之"
         }],
         [{
-            "question": "question3",
-            "option1": "answer1",
-            "option2": "answer2",
-            "option3": "answer3"
+            "question": "傳說，半夜經過醉月湖，會聽到一位女生悄悄地問：「」，但怎麼樣都找不到問話的人。",
+            "option1": "「請問現在幾點了...」",
+            "option2": "「晚上好冷，可以借我一件外套嗎」",
+            "option3": "「晚上好冷，可以和我一起回家吃宵夜嗎」",
+            "answer": "option2",
+            "explanation":"傳說，曾經有位女學生為了挽回感情，與男友相約晚上11點在醉月湖的湖心亭相見，但因為遲遲等不到對方的到來，於是想不開輕生。此後，有人曾在11點左右時路過湖畔，聽到有女生悄悄地問：「請問，現在幾點了？」但怎麼找都找不到問話的人"
         }]
     ],
     "7": [
         [{
-            "question": "question1",
-            "option1": "answer1",
-            "option2": "answer2",
-            "option3": "answer3"
+            "question": "目前位於椰林大道上的傅鐘其實非第一個傅鐘，第一代傅鐘因為禁不起長年的敲打而出現裂痕，所以後來才再重新造了一口鐘。請問，當初第一代傅鐘日響幾聲?",
+            "option1": "根據當時時間決定敲打次數",
+            "option2": "根據當年台大幾週年決定",
+            "option3": "55聲",
+            "answer": "option3",
+            "explanation": "為55聲，因為55是傅校長逝世的歲數。"
         }],
         [{
-            "question": "question2",
-            "option1": "answer1",
-            "option2": "answer2",
-            "option3": "answer3"
+            "question": "第一代傅鐘上面刻了什麼字？",
+            "option1": "思想自由，兼容並包",
+            "option2": "敦品勵學，愛國愛人",
+            "option3": "以建民國，以進大同",
+            "answer": "option2",
+            "explanation": "「敦品勵學，愛國愛人」為台大校訓，「思想自由，兼容並包」為北京大學校訓，「以建民國，以進大同」是國歌歌詞。"
         }],
         [{
-            "question": "question3",
-            "option1": "answer1",
-            "option2": "answer2",
-            "option3": "answer3"
+            "question": "傳說，如果跟著傅鐘數完21聲，會發生什麼事情？",
+            "option1": "期末會被當掉",
+            "option2": "到畢業前都無法脫魯",
+            "option3": "晚上會遇到醉月湖的女鬼",
+            "answer": "option1",
+            "explanation": "原本會響21聲是因為傅校長曾經說過：「一天只有21個小時，因為3小時是用來沈思的」，後來被傳為要是跟著一起數會被21"
         }]
     ],
     "8": [
         [{
-            "question": "question1",
-            "option1": "answer1",
-            "option2": "answer2",
-            "option3": "answer3"
+            "question": "樹學問題：請問椰林大道總共有幾棵椰子樹？",
+            "option1": "88",
+            "option2": "103",
+            "option3": "120",
+            "answer": "option2",
+            "explanation": "椰林大道是台大人共同的記憶，簡媜「初次的椰林大道」也如此描述：椰林像兩支雄糾糾氣昂昂的隊伍，以標準的立正姿勢，凜然的英雄氣概，聳立於大道的兩旁。那挺拔的氣魄、劃一的排列，讓整條大道充滿著不可侵犯的蓋世之威風。第一次踏上大道，我便有「閱兵」的感覺。-"
         }],
         [{
-            "question": "question2",
-            "option1": "answer1",
-            "option2": "answer2",
-            "option3": "answer3"
+            "question": "請問下列敘述何者正確？",
+            "option1": "如果腳踏車以時速超過20的速率經過測速照相機，將會被拍照並受到罰鍰",
+            "option2": "椰林大道是標準的飛機跑道，可以當作戰備跑道或是緊急著陸時使用",
+            "option3": "椰林大道的椰子品種為大王椰子，但是他不會長出椰子，因為台北太冷了椰子不喜歡QQ",
+            "answer": "option3",
+            "explanation": "椰林飛機場只是都市傳說，目前並沒有查閱到相關紀載，而豎立於大道旁的測速儀，目前並沒有實際的作用；第三題正確，真的是因為太冷才不結果實的"
         }],
         [{
-            "question": "question3",
-            "option1": "answer1",
-            "option2": "answer2",
-            "option3": "answer3"
-        }]
-    ],
-    "9": [
-        [{
-            "question": "question1",
-            "option1": "answer1",
-            "option2": "answer2",
-            "option3": "answer3"
-        }],
-        [{
-            "question": "question2",
-            "option1": "answer1",
-            "option2": "answer2",
-            "option3": "answer3"
-        }],
-        [{
-            "question": "question3",
-            "option1": "answer1",
-            "option2": "answer2",
-            "option3": "answer3"
-        }]
-    ],
-    "10": [
-        [{
-            "question": "question1",
-            "option1": "answer1",
-            "option2": "answer2",
-            "option3": "answer3"
-        }],
-        [{
-            "question": "question2",
-            "option1": "answer1",
-            "option2": "answer2",
-            "option3": "answer3"
-        }],
-        [{
-            "question": "question3",
-            "option1": "answer1",
-            "option2": "answer2",
-            "option3": "answer3"
-        }]
-    ],
-    "11": [
-        [{
-            "question": "question1",
-            "option1": "answer1",
-            "option2": "answer2",
-            "option3": "answer3"
-        }],
-        [{
-            "question": "question2",
-            "option1": "answer1",
-            "option2": "answer2",
-            "option3": "answer3"
-        }],
-        [{
-            "question": "question3",
-            "option1": "answer1",
-            "option2": "answer2",
-            "option3": "answer3"
+            "question": "請問在熊仔的MV【112】裡面，他和葉丙成教授在哪裡相互擊掌？",
+            "option1": "椰林大道",
+            "option2": "舟山路",
+            "option3": "蒲葵道",
+            "answer": "option1",
+            "explanation": "還以為在這裡的題目的答案都是椰林大道阿。熊仔畢業於台大電機系，是知名的饒舌歌手、創作者，該MV已經獲得了230萬次點閱，並且有一大堆高中生說一定要考來這裡。"
         }]
     ]
 }
