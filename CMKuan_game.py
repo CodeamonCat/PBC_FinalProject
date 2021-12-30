@@ -78,9 +78,9 @@ class Game:
     def display_button(self, text, answer, size, centerx, centery):
         answer = (text == answer)
         text_font = pygame.font.Font('msjh.ttf', size)
-        text = text_font.render(text, True, self.__text_color, self.__text_background_color)
-        text_clicked = text_font.render("Wront", True, self.__text_color, self.__text_background_color)
-        if answer: text_clicked = text_font.render("Correct", True, self.__text_color, self.__text_background_color)
+        text = text_font.render(text, True, self.__text_background_color, self.__text_color)
+        text_clicked = text_font.render("Wront", True, self.__text_color, (255, 0, 0))
+        if answer: text_clicked = text_font.render("Correct", True, self.__text_color, (127, 255, 0))
         text_rect = text.get_rect()
         text_rect.centerx, text_rect.centery = centerx, centery
         text_clicked_rect = text_clicked.get_rect()
