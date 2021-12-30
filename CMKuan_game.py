@@ -27,6 +27,7 @@ class Game:
         op1_clicked = False; op2_clicked = False; op3_clicked = False 
         background_color = (255, 255, 255)
         guess = False
+        finish = False
 
         while not event_exit:
             event_data = self.__event.display_event_text(Game.__position, event_number)
@@ -39,11 +40,12 @@ class Game:
                     if op1_clicked: guess = op1_ans
                     if op2_clicked: guess = op2_ans
                     if op3_clicked: guess = op3_ans
-                if event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_q:
-                            event_exit = True
                 if event.type == pygame.QUIT:
                     event_exit = True
+                if finish:
+                    if event.type == pygame.KEYDOWN:
+                        event_exit = True
+
             # display button
             pygame.draw.rect(self.__screen, background_color, (0, 400, self.__screen_width, 200))  # topleft(x, y, width, height)
             self.display_text_with_position(event_data[0]['question'], self.__text_size, 400, 425)
@@ -61,6 +63,7 @@ class Game:
                 if op1_ans: self.display_text_with_position(event_data[0]['explanation'], self.__text_size, 400, 425)
                 if op2_ans: self.display_text_with_position(event_data[0]['explanation'], self.__text_size, 400, 425)
                 if op3_ans: self.display_text_with_position(event_data[0]['explanation'], self.__text_size, 400, 425)
+                finish = True
             else:
                 self.__screen.blit(op1_t, op1_t_r)
                 self.__screen.blit(op2_t, op2_t_r)
