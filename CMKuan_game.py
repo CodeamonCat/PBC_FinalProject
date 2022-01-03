@@ -80,7 +80,7 @@ class Game:
         answer = (text == answer)
         text_font = pygame.font.Font('msjh.ttf', size)
         text = text_font.render(text, True, self.__text_background_color, self.__text_color)
-        text_clicked = text_font.render("Wront", True, self.__text_color, (255, 0, 0))
+        text_clicked = text_font.render("Wrong", True, self.__text_color, (255, 0, 0))
         if answer: text_clicked = text_font.render("Correct", True, self.__text_color, (127, 255, 0))
         text_rect = text.get_rect()
         text_rect.centerx, text_rect.centery = centerx, centery
@@ -92,10 +92,10 @@ class Game:
         cover_background = Game.get_image('image\start.jpg', self.__screen_width, self.__screen_height)
         self.__screen.blit(cover_background, (0, 0))
         self.display_text_with_position("管爺每天過者0037睡覺，0939起床的日子", 28, (self.__screen_width//2), (self.__screen_height//2 - 200))
-        self.display_text_with_position("卻被每天都在趕Deadline同學質疑他到底懂不懂台大校", 28, (self.__screen_width//2), (self.__screen_height//2 - 130))
+        self.display_text_with_position("卻被每天都在趕Deadline同學質疑他到底懂不懂台大校園", 28, (self.__screen_width//2), (self.__screen_height//2 - 130))
         self.display_text_with_position("否則怎麼可能那麼爽QQ", 40, (self.__screen_width//2), (self.__screen_height//2 - 60))
         self.display_text_with_position("用方向鍵操控管爺，並且蒐集散落在台大各個角落的問題", 28, (self.__screen_width//2), (self.__screen_height//2 + 40))
-        self.display_text_with_position("在時間內盡量獲得高分吧！", 28, (self.__screen_width//2), (self.__screen_height//2 + 110))
+        self.display_text_with_position("在120秒內盡量獲得高分吧！", 28, (self.__screen_width//2), (self.__screen_height//2 + 110))
         self.display_text_with_position_color("~按任何按鍵開始~", 60, (self.__screen_width//2), (self.__screen_height//2 + 200), self.__text_background_color, (255, 0, 0))
         pygame.display.update()
 
